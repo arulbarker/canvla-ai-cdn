@@ -1,0 +1,96 @@
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="px-2 mb-4">
+                <h1 class="text-xl font-extrabold flex items-center gap-2">
+                    <span class="accent-grad rounded-lg w-9 h-9 flex items-center justify-center" style="color:#1a1206"><i class="fas fa-sliders"></i></span>
+                    Canvla <span class="accent-text">AI</span>
+                </h1>
+                <p class="text-xs mt-1" style="color:var(--muted)" data-i18n="app.tagline">AI Color Grading Studio</p>
+            </div>
+            <div class="mb-4 flex gap-2 px-2">
+                <button data-lang="id" class="lang-btn selected">ID</button>
+                <button data-lang="en" class="lang-btn">EN</button>
+            </div>
+            <div id="user-badge">
+                <i class="fas fa-circle-user accent-text"></i>
+                <span id="user-name" class="flex-1 truncate"></span>
+                <button type="button" id="logout-btn" title="Logout"><i class="fas fa-right-from-bracket"></i></button>
+            </div>
+            <nav id="sidebar-nav">
+                <button data-tab="beranda" class="main-tab-btn active">
+                    <i class="fas fa-house"></i><span data-i18n="nav.home">Beranda</span>
+                </button>
+                <p class="text-[0.7rem] font-bold uppercase tracking-wider px-3 mt-4 mb-1" style="color:var(--muted)" data-i18n="nav.section">Color Grading</p>
+            </nav>
+        </aside>
+        <button id="toggle-sidebar" class="toggle-sidebar-btn" aria-label="Toggle menu"><i class="fas fa-chevron-left"></i></button>
+        <main class="main-content-wrapper" id="main-panels">
+            <div id="content-beranda" class="main-content-panel">
+                <div class="card p-6 sm:p-8 max-w-3xl mx-auto mt-6">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-2"><span data-i18n="home.title">Selamat datang di Canvla AI</span></h2>
+                    <p class="text-sm mb-6" style="color:var(--muted)" data-i18n="home.sub">Ubah fotomu jadi karya sinematik dengan color grading AI — pilih tema, generate, selesai.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="step-num">1</div>
+                            <div>
+                                <p class="font-semibold" data-i18n="home.s1">Upload foto</p>
+                                <p class="text-sm" style="color:var(--muted)" data-i18n="home.s1d">JPG, PNG, WEBP, atau HEIC dari iPhone — semua bisa.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="step-num">2</div>
+                            <div>
+                                <p class="font-semibold" data-i18n="home.s2">Pilih tema color grading</p>
+                                <p class="text-sm" style="color:var(--muted)" data-i18n="home.s2d">72 tema di 11 kategori — dari Foggy Forest sampai Cyberpunk Neon. Atau tulis prompt sendiri di Custom Studio.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="step-num">3</div>
+                            <div>
+                                <p class="font-semibold" data-i18n="home.s3">Generate</p>
+                                <p class="text-sm" style="color:var(--muted)" data-i18n="home.s3d">Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu download hasilnya.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-4 rounded-xl" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3)">
+                        <p class="text-sm"><i class="fas fa-circle-info accent-text mr-2"></i><span data-i18n="home.note">Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.</span></p>
+                    </div>
+                    <p class="text-xs mt-6 text-center" style="color:var(--muted)">Canvla AI by <span class="accent-text font-semibold">arul.cg</span></p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <nav class="mobile-bottom-nav" id="mobile-nav"></nav>
+    <div id="login-overlay">
+        <div class="login-card">
+            <div class="text-center mb-6">
+                <div class="accent-grad rounded-xl w-14 h-14 flex items-center justify-center mx-auto mb-3" style="color:#1a1206"><i class="fas fa-sliders text-2xl"></i></div>
+                <h2 class="text-2xl font-extrabold">Canvla <span class="accent-text">AI</span></h2>
+                <p class="text-sm mt-1" style="color:var(--muted)" data-i18n="login.sub">Masuk dengan email pembelianmu</p>
+            </div>
+            <div class="flex gap-2 mb-4">
+                <button data-lang="id" class="lang-btn selected">ID</button>
+                <button data-lang="en" class="lang-btn">EN</button>
+            </div>
+            <input type="email" id="login-email" class="login-input" data-i18n-placeholder="login.email-placeholder" placeholder="Email pembelian..." autocomplete="email">
+            <p id="login-error" class="hidden text-sm mt-2" style="color:#f87171"></p>
+            <button type="button" id="login-btn" class="btn-generate mt-4"><i class="fas fa-right-to-bracket"></i><span data-i18n="login.btn">Masuk</span></button>
+            <div id="login-loading" class="hidden text-center mt-3 text-sm" style="color:var(--muted)"><i class="fas fa-circle-notch spin mr-2"></i><span data-i18n="login.loading">Memeriksa akses...</span></div>
+            <div id="login-buy-box" class="mt-6 pt-5" style="border-top:1px solid var(--line)">
+                <p class="text-sm font-semibold text-center mb-3" data-i18n="login.buy-title">Belum punya akses?</p>
+                <div class="space-y-2">
+                    <button type="button" id="buy-lynk-btn" class="buy-btn hidden"><i class="fas fa-cart-shopping accent-text"></i><span data-i18n="login.buy-lynk">Beli di Lynk.id</span></button>
+                    <button type="button" id="buy-mayar-btn" class="buy-btn hidden"><i class="fas fa-cart-shopping accent-text"></i><span data-i18n="login.buy-mayar">Beli di Mayar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="preview-modal" class="hidden">
+        <button id="preview-close" aria-label="Close preview"><i class="fas fa-xmark"></i></button>
+        <img id="preview-img" src="" alt="">
+        <button id="preview-download" data-action="download" data-base64="" data-filename="" class="download-btn"><i class="fas fa-download"></i><span data-i18n="wiz.download">Download</span></button>
+    </div>
+    <div id="toast"></div>
+
+    
