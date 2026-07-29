@@ -4,7 +4,11 @@
         // === I18N ===
         const T = {
             id: {
+                'app.title': 'Canvla AI — Studio Color Grading AI',
                 'app.tagline': 'Studio Color Grading AI',
+                'a11y.logout': 'Keluar',
+                'a11y.toggle-menu': 'Buka/tutup menu',
+                'a11y.close-preview': 'Tutup pratinjau',
                 'nav.home': 'Beranda',
                 'nav.section': 'Color Grading',
                 'home.title': 'Selamat datang di Canvla AI',
@@ -94,7 +98,11 @@
                 'login.session-ended': 'Sesi berakhir! Akun ini sedang dipakai di perangkat lain. Kamu akan dikembalikan ke halaman login.'
             },
             en: {
+                'app.title': 'Canvla AI — AI Color Grading Studio',
                 'app.tagline': 'AI Color Grading Studio',
+                'a11y.logout': 'Log out',
+                'a11y.toggle-menu': 'Toggle menu',
+                'a11y.close-preview': 'Close preview',
                 'nav.home': 'Home',
                 'nav.section': 'Color Grading',
                 'home.title': 'Welcome to Canvla AI',
@@ -186,10 +194,25 @@
         };
         let LANG = localStorage.getItem('app_language') || 'id';
         const t = (k) => (T[LANG] && T[LANG][k]) || T.id[k] || k;
+        const BACKEND_MSG_EN = {
+            'Akses tidak valid.': 'Invalid access.',
+            'Akses tidak diizinkan.': 'Access not allowed.',
+            'Terlalu banyak percobaan. Coba lagi 1 menit.': 'Too many attempts. Try again in 1 minute.',
+            'Terjadi kesalahan server.': 'A server error occurred.',
+            'Email tidak terdaftar. Gunakan email yang dipakai saat pembelian.': 'Email not registered. Use the email you used when purchasing.',
+            'Masa aktif habis. Silakan perpanjang.': 'Your access period has expired. Please renew.',
+            'Akun Anda tidak aktif. Silakan hubungi admin atau perpanjang.': 'Your account is inactive. Please contact the admin or renew.',
+            'Akun login di perangkat lain!': 'This account is logged in on another device!',
+            'Action tidak dikenal.': 'Unknown action.'
+        };
+        const tBackend = (msg) => (LANG === 'en' && msg && BACKEND_MSG_EN[msg]) || msg;
         function applyI18n() {
             document.documentElement.lang = LANG;
+            document.title = t('app.title');
             document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+            document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+            document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
         }
         document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => {
             LANG = b.dataset.lang;
@@ -224,7 +247,7 @@
                 { id: 'dramatic-relight', name: 'Dramatic Relight', prompt: `Apply a clearly noticeable cinematic relight color grade. Make the image visibly darker and moodier than the original with deep rich shadows, dramatic tonal depth, and a premium cinematic atmosphere. Create a sharp, luminous, concentrated glow that builds strong contrast between dark shadow regions and illuminated focal points, with bold rim-light tones, glossy highlight transitions, stronger tonal separation between blacks, midtones, and glowing whites, and selective radiant bloom on focal details only, ${PRESERVE}` }
             ]},
             { id: 'forest', fa: 'fa-tree', presets: [
-                { id: 'dense-fog', name: 'Dense Fog (Kabut Tebal)', prompt: `Transform this image into a breathtaking ultra-realistic foggy masterpiece. Cover the entire environment in dense, thick, layered natural white fog with drifting mist and strong atmospheric depth, creating a mysterious and cinematic atmosphere — the fog may be added generously and realistically throughout the scene. Apply rich forest-inspired color grading with deep emerald green, dark teal, moss green, and earthy brown tones, and introduce soft volumetric light rays subtly penetrating through the fog, creating depth and realism, with a moody woodland aesthetic and professional cinematic photography grading, like a premium DSLR photograph captured during a cold heavily misty morning. ${PRESERVE_FOG}` },
+                { id: 'dense-fog', name: 'Dense Fog', prompt: `Transform this image into a breathtaking ultra-realistic foggy masterpiece. Cover the entire environment in dense, thick, layered natural white fog with drifting mist and strong atmospheric depth, creating a mysterious and cinematic atmosphere — the fog may be added generously and realistically throughout the scene. Apply rich forest-inspired color grading with deep emerald green, dark teal, moss green, and earthy brown tones, and introduce soft volumetric light rays subtly penetrating through the fog, creating depth and realism, with a moody woodland aesthetic and professional cinematic photography grading, like a premium DSLR photograph captured during a cold heavily misty morning. ${PRESERVE_FOG}` },
                 { id: 'dense-warm-fog', name: 'Dense Warm Fog', prompt: `Transform this image into a breathtaking ultra-realistic warm foggy masterpiece. Cover the entire environment in dense, thick, natural warm golden fog with layered dreamy mist and strong atmospheric depth — the fog may be added generously and realistically throughout the scene. Apply rich warm color grading with deep emerald-yellow greens, dark teal, mossy grey, and earthy brown tones, and introduce soft golden volumetric light rays glowing through the fog, like a premium DSLR photograph captured during a warm heavily misty sunrise. ${PRESERVE_FOG}` },
                 { id: 'foggy-forest', name: 'Foggy Forest', prompt: `Apply a breathtaking ultra-realistic foggy forest color grade to this image. Grade the whole scene with the atmosphere of a cold misty morning: a soft white hazy tonal quality, muted low-contrast distance, and rich forest-inspired color grading with deep emerald green, dark teal, moss green, and earthy brown tones. Give the existing light a soft, diffused, gently volumetric quality, with a moody woodland aesthetic, atmospheric perspective, and professional cinematic photography grading, like a premium DSLR photograph captured on a cold misty morning, ${PRESERVE}` },
                 { id: 'enchanted-emerald', name: 'Enchanted Emerald', prompt: `Apply a glowing enchanted emerald color grade to this image. Saturate the existing greens toward luminous emerald and jade, give the existing light a soft fairy-tale glow, and deepen the shadows into rich mossy tones, ${PRESERVE}` },
@@ -764,7 +787,7 @@
                         localStorage.setItem('canvla_name', d.nama || email);
                         openApp(d.nama || email);
                     } else {
-                        showError(d.message || t('login.err-conn'));
+                        showError(tBackend(d.message) || t('login.err-conn'));
                     }
                 } catch (e) {
                     showError(t('login.err-conn'));

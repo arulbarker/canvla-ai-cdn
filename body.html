@@ -15,7 +15,7 @@
             <div id="user-badge">
                 <i class="fas fa-circle-user accent-text"></i>
                 <span id="user-name" class="flex-1 truncate"></span>
-                <button type="button" id="logout-btn" title="Keluar"><i class="fas fa-right-from-bracket"></i></button>
+                <button type="button" id="logout-btn" title="Keluar" data-i18n-title="a11y.logout"><i class="fas fa-right-from-bracket"></i></button>
             </div>
             <nav id="sidebar-nav">
                 <button data-tab="beranda" class="main-tab-btn active">
@@ -24,7 +24,7 @@
                 <p class="text-[0.7rem] font-bold uppercase tracking-wider px-3 mt-4 mb-1" style="color:var(--muted)" data-i18n="nav.section">Color Grading</p>
             </nav>
         </aside>
-        <button id="toggle-sidebar" class="toggle-sidebar-btn" aria-label="Buka/tutup menu"><i class="fas fa-chevron-left"></i></button>
+        <button id="toggle-sidebar" class="toggle-sidebar-btn" aria-label="Buka/tutup menu" data-i18n-aria="a11y.toggle-menu"><i class="fas fa-chevron-left"></i></button>
         <main class="main-content-wrapper" id="main-panels">
             <div id="content-beranda" class="main-content-panel">
                 <div class="card p-6 sm:p-8 max-w-3xl mx-auto mt-6">
@@ -87,7 +87,7 @@
         </div>
     </div>
     <div id="preview-modal" class="hidden">
-        <button id="preview-close" aria-label="Tutup pratinjau"><i class="fas fa-xmark"></i></button>
+        <button id="preview-close" aria-label="Tutup pratinjau" data-i18n-aria="a11y.close-preview"><i class="fas fa-xmark"></i></button>
         <img id="preview-img" src="" alt="">
         <button id="preview-download" data-action="download" data-base64="" data-filename="" class="download-btn"><i class="fas fa-download"></i><span data-i18n="wiz.download">Unduh</span></button>
     </div>
