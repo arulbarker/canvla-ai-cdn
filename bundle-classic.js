@@ -687,7 +687,7 @@
             SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzgOFqBMpZXzBjn-fuiViFAetcMy7Ez_68VGIGlNRa9AauPQ5NF9CxlStfiAvn75qwm/exec",
             APP_SECRET: "u4i29FqSI1XhepLQngYvETKl0bzD",
             PRODUCT_ID: "canvla-ai",
-            BUY_LYNK_URL: "YOUR-LYNK-URL",
+            BUY_LYNK_URL: "https://lynk.id/arullagi/65dnr5oqwdok",
             BUY_MAYAR_URL: "YOUR-MAYAR-URL"
         };
         (function() {
