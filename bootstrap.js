@@ -56,8 +56,8 @@
   function showError(msg) {
     document.body.innerHTML =
       '<div style="padding:24px;color:#fff;background:#3a0a0a;font-family:system-ui;min-height:100vh;">'
-      + '<h2 style="margin:0 0 12px">Boot error</h2>'
-      + '<pre style="white-space:pre-wrap;word-break:break-word">' + (msg || 'Unknown error') + '</pre>'
+      + '<h2 style="margin:0 0 12px">Gagal memuat app</h2>'
+      + '<pre style="white-space:pre-wrap;word-break:break-word">' + (msg || 'Error tidak diketahui') + '</pre>'
       + '<p style="margin-top:16px;opacity:.7">Buka DevTools console untuk detail teknis.</p>'
       + '</div>';
   }

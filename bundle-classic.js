@@ -4,73 +4,84 @@
         // === I18N ===
         const T = {
             id: {
-                'app.tagline': 'AI Color Grading Studio',
+                'app.tagline': 'Studio Color Grading AI',
                 'nav.home': 'Beranda',
                 'nav.section': 'Color Grading',
                 'home.title': 'Selamat datang di Canvla AI',
-                'home.sub': 'Ubah fotomu jadi karya sinematik dengan color grading AI — pilih tema, generate, selesai.',
-                'home.s1': 'Upload foto',
+                'home.sub': 'Ubah fotomu jadi karya sinematik dengan color grading AI — pilih tema, proses, selesai.',
+                'home.s1': 'Unggah foto',
                 'home.s1d': 'JPG, PNG, WEBP, atau HEIC dari iPhone — semua bisa.',
                 'home.s2': 'Pilih tema color grading',
-                'home.s2d': '82 tema di 11 kategori — dari Foggy Forest sampai Cyberpunk Neon. Atau tulis prompt sendiri di Custom Studio.',
-                'home.s3': 'Generate',
-                'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu download hasilnya.',
+                'home.s2d': '82 tema di 11 kategori — dari Foggy Forest sampai Cyberpunk Neon. Atau tulis prompt sendiri di Studio Kustom.',
+                'home.s3': 'Proses',
+                'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu unduh hasilnya.',
                 'home.note': 'Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.',
-                'wiz.step1': 'Upload Foto',
+                'wiz.step1': 'Unggah Foto',
                 'wiz.step-mode': 'Mode Edit',
                 'mode.grading': 'Color Grading',
                 'mode.grading-desc': 'Foto 100% asli — hanya warna & tone yang berubah',
-                'mode.editor': 'AI Editor',
+                'mode.editor': 'Editor AI',
                 'mode.editor-desc': 'AI mendramatisir lingkungan & atmosfer — subjek tetap asli',
                 'wiz.step2': 'Pilih Tema',
                 'wiz.step3': 'Intensitas Efek',
-                'wiz.step4': 'Aspect Ratio',
-                'wiz.step5': 'Jumlah Generate',
+                'wiz.step4': 'Rasio Foto',
+                'wiz.step5': 'Jumlah Hasil',
                 'wiz.upload-hint': 'Klik atau tarik foto ke sini',
                 'wiz.upload-formats': 'JPG · PNG · WEBP · HEIC',
                 'wiz.change-photo': 'Ganti Foto',
-                'wiz.custom-label': 'Custom Prompt (opsional)',
+                'wiz.custom-label': 'Prompt Tambahan (opsional)',
                 'wiz.custom-placeholder': 'Tulis instruksi tambahan...',
                 'wiz.custom-required': 'Tulis prompt color grading kamu di sini...',
-                'wiz.generate': 'Generate',
-                'wiz.stop': 'Stop Generate',
+                'wiz.generate': 'Proses Foto',
+                'wiz.stop': 'Hentikan Proses',
                 'wiz.results': 'Hasil',
-                'wiz.download': 'Download',
-                'wiz.download-all': 'Download Semua',
+                'wiz.download': 'Unduh',
+                'wiz.download-all': 'Unduh Semua',
+                'wiz.preview': 'Pratinjau',
                 'wiz.empty': 'Hasil akan muncul di sini',
-                'wiz.empty-hint': 'Upload foto lalu klik Generate',
-                'wiz.err-upload': 'Silakan upload foto dulu.',
+                'wiz.empty-hint': 'Unggah foto lalu klik Proses Foto',
+                'wiz.err-upload': 'Silakan unggah foto dulu.',
                 'wiz.err-file': 'File tidak didukung. Gunakan JPG, PNG, WEBP, atau HEIC.',
-                'wiz.err-custom': 'Tulis prompt dulu di Custom Studio.',
-                'wiz.err-quota': 'Gagal generate. Akun Google ini kemungkinan mencapai batas — coba ganti akun Google lalu ulangi.',
+                'wiz.err-custom': 'Tulis prompt dulu di Studio Kustom.',
+                'wiz.err-quota': 'Gagal memproses. Akun Google ini kemungkinan mencapai batas — coba ganti akun Google lalu ulangi.',
                 'int.subtle': 'Halus',
                 'int.medium': 'Sedang',
                 'int.strong': 'Kuat',
                 'int.max': 'Sangat Kuat',
-                'cat.cinematic.name': 'Cinematic Film',
+                'cat.cinematic.name': 'Film Sinematik',
                 'cat.cinematic.desc': 'Gradasi warna gaya film Hollywood',
-                'cat.forest.name': 'Nature & Forest',
+                'cat.forest.name': 'Alam & Hutan',
                 'cat.forest.desc': 'Hutan berkabut dan nuansa alam',
-                'cat.golden.name': 'Golden Hour & Warm',
+                'cat.golden.name': 'Cahaya Emas & Hangat',
                 'cat.golden.desc': 'Cahaya emas hangat matahari',
-                'cat.moody.name': 'Moody & Dark',
+                'cat.moody.name': 'Gelap & Dramatis',
                 'cat.moody.desc': 'Gelap, kelam, penuh suasana',
-                'cat.vintage.name': 'Vintage & Film',
+                'cat.vintage.name': 'Vintage & Film Analog',
                 'cat.vintage.desc': 'Emulasi film analog klasik',
-                'cat.urban.name': 'Urban & Night',
+                'cat.urban.name': 'Kota & Malam',
                 'cat.urban.desc': 'Kota malam dan cahaya neon',
-                'cat.aesthetic.name': 'Clean & Aesthetic',
+                'cat.aesthetic.name': 'Bersih & Estetik',
                 'cat.aesthetic.desc': 'Bersih, terang, kekinian',
-                'cat.bw.name': 'Black & White',
+                'cat.bw.name': 'Hitam Putih',
                 'cat.bw.desc': 'Monokrom klasik dan dramatis',
-                'cat.weather.name': 'Weather & Season',
+                'cat.weather.name': 'Cuaca & Musim',
                 'cat.weather.desc': 'Kabut, hujan, salju, musim',
-                'cat.travel.name': 'Travel & Landscape',
+                'cat.travel.name': 'Wisata & Lanskap',
                 'cat.travel.desc': 'Warna khas destinasi dunia',
-                'cat.food.name': 'Food & Product',
+                'cat.food.name': 'Makanan & Produk',
                 'cat.food.desc': 'Foto makanan dan produk menggugah',
-                'cat.custom.name': 'Custom Studio',
+                'cat.custom.name': 'Studio Kustom',
                 'cat.custom.desc': 'Tulis prompt color grading sendiri',
+                'ratio.1:1': 'Kotak',
+                'ratio.3:4': 'Potret',
+                'ratio.4:3': 'Klasik',
+                'ratio.4:5': 'Feed IG',
+                'ratio.5:4': 'Besar',
+                'ratio.2:3': 'Foto',
+                'ratio.3:2': 'DSLR',
+                'ratio.9:16': 'Story',
+                'ratio.16:9': 'Lebar',
+                'ratio.21:9': 'Sinema',
                 'login.sub': 'Masuk dengan email pembelianmu',
                 'login.email-placeholder': 'Email pembelian...',
                 'login.btn': 'Masuk',
@@ -116,6 +127,7 @@
                 'wiz.results': 'Results',
                 'wiz.download': 'Download',
                 'wiz.download-all': 'Download All',
+                'wiz.preview': 'Preview',
                 'wiz.empty': 'Results will appear here',
                 'wiz.empty-hint': 'Upload a photo and hit Generate',
                 'wiz.err-upload': 'Please upload a photo first.',
@@ -150,6 +162,16 @@
                 'cat.food.desc': 'Appetizing food and product shots',
                 'cat.custom.name': 'Custom Studio',
                 'cat.custom.desc': 'Write your own grading prompt',
+                'ratio.1:1': 'Square',
+                'ratio.3:4': 'Portrait',
+                'ratio.4:3': 'Classic',
+                'ratio.4:5': 'IG Feed',
+                'ratio.5:4': 'Large',
+                'ratio.2:3': 'Photo',
+                'ratio.3:2': 'DSLR',
+                'ratio.9:16': 'Story',
+                'ratio.16:9': 'Wide',
+                'ratio.21:9': 'Cinema',
                 'login.sub': 'Log in with your purchase email',
                 'login.email-placeholder': 'Purchase email...',
                 'login.btn': 'Log In',
@@ -370,18 +392,7 @@
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePreview(); });
 
         // === BUILDERS ===
-        const RATIOS = [
-            { r: '1:1',  label: 'Square' },
-            { r: '3:4',  label: 'Portrait' },
-            { r: '4:3',  label: 'Classic' },
-            { r: '4:5',  label: 'Feed IG' },
-            { r: '5:4',  label: 'Large' },
-            { r: '2:3',  label: 'Photo' },
-            { r: '3:2',  label: 'DSLR' },
-            { r: '9:16', label: 'Story' },
-            { r: '16:9', label: 'Wide' },
-            { r: '21:9', label: 'Cinema' }
-        ];
+        const RATIOS = ['1:1', '3:4', '4:3', '4:5', '5:4', '2:3', '3:2', '9:16', '16:9', '21:9'];
 
         function buildSidebar() {
             const nav = document.getElementById('sidebar-nav');
@@ -481,7 +492,7 @@
                         <div class="card p-5">
                             ${stepHead(5, 'wiz.step4')}
                             <div id="${cat.id}-ratio-grid" class="grid grid-cols-2 gap-2">
-                                ${RATIOS.map(x => `<button type="button" class="opt-btn${x.r === '3:4' ? ' selected' : ''}" data-ratio="${x.r}"><span class="ratio-icon" style="aspect-ratio:${x.r.replace(':', '/')}"></span>${x.r} ${x.label}</button>`).join('')}
+                                ${RATIOS.map(r => `<button type="button" class="opt-btn${r === '3:4' ? ' selected' : ''}" data-ratio="${r}"><span class="ratio-icon" style="aspect-ratio:${r.replace(':', '/')}"></span>${r} <span data-i18n="ratio.${r}"></span></button>`).join('')}
                             </div>
                         </div>
                         <div class="card p-5">
@@ -556,7 +567,7 @@
                     const fname = state.results[index - 1].filename;
                     card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${state.ratio.replace(':', '/')}" alt="">` +
                         `<div class="flex items-center justify-center gap-2 mt-2">` +
-                        `<button data-action="preview" data-base64="${b64}" data-filename="${fname}" class="preview-btn" title="Preview"><i class="fas fa-eye"></i></button>` +
+                        `<button data-action="preview" data-base64="${b64}" data-filename="${fname}" class="preview-btn" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
                         `<button data-action="download" data-base64="${b64}" data-filename="${fname}" class="download-btn"><i class="fas fa-download"></i></button>` +
                         `</div>`;
                 }
