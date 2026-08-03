@@ -89,6 +89,13 @@
             color: #1a1206; border-color: transparent; font-weight: 700;
             box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
         }
+        .badge-new {
+            display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.4rem;
+            font-size: 0.6rem; font-weight: 700; line-height: 1.5; letter-spacing: 0.03em;
+            text-transform: uppercase; border-radius: 9999px; vertical-align: middle;
+            background: #10b981; color: #06231a;
+        }
+        .preset-btn.selected .badge-new { background: #06231a; color: #34d399; }
 
         .count-btn-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
         .count-btn-grid button {

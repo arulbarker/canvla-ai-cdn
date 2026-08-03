@@ -16,10 +16,11 @@
                 'home.s1': 'Unggah foto',
                 'home.s1d': 'JPG, PNG, WEBP, atau HEIC dari iPhone — semua bisa.',
                 'home.s2': 'Pilih tema color grading',
-                'home.s2d': '82 tema di 11 kategori — dari Hutan Berkabut sampai Neon Cyberpunk. Atau tulis prompt sendiri di Studio Kustom.',
+                'home.s2d': '86 tema di 12 kategori — dari Hutan Berkabut sampai Ganti Suasana. Atau tulis prompt sendiri di Studio Kustom.',
                 'home.s3': 'Proses',
                 'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu unduh hasilnya.',
                 'home.note': 'Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.',
+                'badge.new': 'Baru',
                 'wiz.step1': 'Unggah Foto',
                 'wiz.step-mode': 'Mode Edit',
                 'mode.grading': 'Color Grading',
@@ -74,6 +75,8 @@
                 'cat.travel.desc': 'Warna khas destinasi dunia',
                 'cat.food.name': 'Makanan & Produk',
                 'cat.food.desc': 'Foto makanan dan produk menggugah',
+                'cat.suasana.name': 'Ganti Suasana',
+                'cat.suasana.desc': 'Ganti latar & lensa — wajah tetap asli',
                 'cat.custom.name': 'Studio Kustom',
                 'cat.custom.desc': 'Tulis prompt color grading sendiri',
                 'preset.teal-orange': 'Teal & Oranye Blockbuster',
@@ -104,6 +107,7 @@
                 'preset.desert-gold': 'Emas Gurun',
                 'preset.beach-evening': 'Senja Pantai Hangat',
                 'preset.sunset-dream-haze': 'Kabut Mimpi Senja',
+                'preset.dreamy-golden': 'Golden Hour Dreamy',
                 'preset.dark-matte': 'Matte Gelap Dramatis',
                 'preset.midnight-blue': 'Biru Tengah Malam',
                 'preset.rainy-blues': 'Sendu Hujan',
@@ -158,6 +162,9 @@
                 'preset.dark-rustic': 'Rustic Gelap',
                 'preset.fresh-vivid': 'Produk Segar Cerah',
                 'preset.golden-crispy': 'Gurih Keemasan',
+                'preset.cloud-inversion': 'Lautan Awan Puncak',
+                'preset.blue-hour-env': 'Blue Hour Senja',
+                'preset.ultra-wide': 'Ultra-Wide 0.5x',
                 'ratio.1:1': 'Kotak',
                 'ratio.3:4': 'Potret',
                 'ratio.4:3': 'Klasik',
@@ -192,10 +199,11 @@
                 'home.s1': 'Upload a photo',
                 'home.s1d': 'JPG, PNG, WEBP, or iPhone HEIC — all supported.',
                 'home.s2': 'Pick a color grading theme',
-                'home.s2d': '82 themes across 11 categories — from Foggy Forest to Cyberpunk Neon. Or write your own in Custom Studio.',
+                'home.s2d': '86 themes across 12 categories — from Foggy Forest to Scene & Lens. Or write your own in Custom Studio.',
                 'home.s3': 'Generate',
                 'home.s3d': 'Set intensity, ratio (10 options), and count (1-10 photos) — then download the results.',
                 'home.note': 'Free via Google AI Studio — no API key needed. Run this app inside AI Studio Canvas.',
+                'badge.new': 'New',
                 'wiz.step1': 'Upload Photo',
                 'wiz.step-mode': 'Edit Mode',
                 'mode.grading': 'Color Grading',
@@ -250,6 +258,8 @@
                 'cat.travel.desc': 'Signature destination palettes',
                 'cat.food.name': 'Food & Product',
                 'cat.food.desc': 'Appetizing food and product shots',
+                'cat.suasana.name': 'Scene & Lens',
+                'cat.suasana.desc': 'Swap the environment & lens — face stays intact',
                 'cat.custom.name': 'Custom Studio',
                 'cat.custom.desc': 'Write your own grading prompt',
                 'preset.teal-orange': 'Teal & Orange Blockbuster',
@@ -280,6 +290,7 @@
                 'preset.desert-gold': 'Desert Gold',
                 'preset.beach-evening': 'Warm Beach Evening',
                 'preset.sunset-dream-haze': 'Sunset Dream Haze',
+                'preset.dreamy-golden': 'Dreamy Golden Hour',
                 'preset.dark-matte': 'Dark Moody Matte',
                 'preset.midnight-blue': 'Midnight Blue',
                 'preset.rainy-blues': 'Rainy Blues',
@@ -334,6 +345,9 @@
                 'preset.dark-rustic': 'Dark Rustic Food',
                 'preset.fresh-vivid': 'Fresh Vivid Product',
                 'preset.golden-crispy': 'Golden Crispy Warm',
+                'preset.cloud-inversion': 'Cloud Inversion',
+                'preset.blue-hour-env': 'Blue Hour',
+                'preset.ultra-wide': 'Ultra-Wide 0.5x',
                 'ratio.1:1': 'Square',
                 'ratio.3:4': 'Portrait',
                 'ratio.4:3': 'Classic',
@@ -429,7 +443,8 @@
                 { id: 'amber-backlight', name: 'Amber Backlight', prompt: `Grade this image as if warmly backlit: glowing golden edge tones on the subject, a soft luminous amber warmth across the highlights, and a radiant warm tonal haze, ${PRESERVE}` },
                 { id: 'desert-gold', name: 'Desert Gold', prompt: `Transform this image with a harsh golden desert grade. Apply hot sand-gold tones across the scene, strong dry sunlight with crisp shadows, shimmering heat atmosphere, and mineral warm texture, ${PRESERVE}` },
                 { id: 'beach-evening', name: 'Warm Beach Evening', prompt: `Transform this image with a warm beach evening grade. Blend soft golden sand tones with gentle turquoise water hues, low warm sun glow, salt-air haze, and a relaxed tropical dusk mood, ${PRESERVE}` },
-                { id: 'sunset-dream-haze', name: 'Sunset Dream Haze', prompt: `Apply a dreamy sunset color grade with a soft cinematic dream-haze diffusion. Warm the light with soft yellow, orange, and pink sunset tones, add vibrant pastel color tints, a gentle hopeful dreamlike glow, and a Fujifilm analog film tonal finish, ${PRESERVE}` }
+                { id: 'sunset-dream-haze', name: 'Sunset Dream Haze', prompt: `Apply a dreamy sunset color grade with a soft cinematic dream-haze diffusion. Warm the light with soft yellow, orange, and pink sunset tones, add vibrant pastel color tints, a gentle hopeful dreamlike glow, and a Fujifilm analog film tonal finish, ${PRESERVE}` },
+                { id: 'dreamy-golden', name: 'Dreamy Golden Hour', isNew: true, prompt: `Apply a soft ethereal dreamy cinematic color grade inspired by warm golden-hour sunlight filtering through leaves. Create a strong dreamy glow, creamy highlights, soft bloom around bright areas, gentle atmospheric haze, low contrast with lifted blacks, and a warm ivory, beige and muted olive palette. Use soft pastel shadows, smooth skin tones, Kodak Portra 400 inspired tones, a matte film finish, subtle film grain, a Black Pro Mist softness, and a peaceful nostalgic airy mood. Avoid oversaturation, harsh contrast, sharp clinical edges, and any HDR or artificial look, ${PRESERVE}` }
             ]},
             { id: 'moody', fa: 'fa-moon', presets: [
                 { id: 'dark-matte', name: 'Dark Moody Matte', prompt: `Transform this image with a dark moody matte grade. Lift the blacks into soft matte charcoal, mute the colors toward deep muted earth tones, lower the highlights, and create a quiet brooding editorial atmosphere, ${PRESERVE}` },
@@ -500,6 +515,11 @@
                 { id: 'dark-rustic', name: 'Dark Rustic Food', prompt: `Transform this image with a dark rustic food grade. Set the scene in moody low-key light over dark wood tones, rich deep shadows, warm candle-like highlights on textures, and an artisanal restaurant drama, ${PRESERVE}` },
                 { id: 'fresh-vivid', name: 'Fresh Vivid Product', prompt: `Transform this image with a fresh vivid grade. Boost crisp natural saturation, cool clean brightness, dewy fresh texture detail, and an energetic healthy market-fresh appeal, ${PRESERVE}` },
                 { id: 'golden-crispy', name: 'Golden Crispy Warm', prompt: `Transform this image with a golden crispy food grade. Deepen the fried golden-brown tones, add sizzling warm light, crunchy texture emphasis, and an irresistible comfort-food warmth, ${PRESERVE}` }
+            ]},
+            { id: 'suasana', fa: 'fa-mountain-sun', editorNative: true, isNew: true, presets: [
+                { id: 'cloud-inversion', name: 'Cloud Inversion', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top cloud inversion: an endless sea of clouds below, sunrise light, crisp mountain air, layered cloud formations, physically accurate perspective and natural color grading.` },
+                { id: 'blue-hour-env', name: 'Blue Hour', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Transform the environment into blue hour just after sunset: deep blue sky gradients, cool ambient illumination, soft contrast, realistic twilight colors, and subtle artificial light reflections where appropriate.` },
+                { id: 'ultra-wide', name: 'Ultra-Wide 0.5x', isNew: true, prompt: `Preserve the person, their identity, pose, clothing, facial details, and the overall composition exactly. Transform the image into a 0.5x ultra-wide smartphone camera perspective by naturally expanding the field of view without changing the camera angle. Make the subject appear slightly smaller while revealing more of the surrounding environment. Preserve the realistic perspective distortion typical of a 13mm ultra-wide smartphone lens, with slightly stretched edges but without unnatural distortion on people. Keep the image highly photorealistic with natural lighting, realistic shadows, sharp textures, HDR details, balanced exposure, and true-to-life colors. Maintain a peaceful atmosphere and make it look like a real 0.5x ultra-wide photo taken directly from a modern smartphone, not an AI-generated one. Add subtle lens correction, natural depth, realistic optical characteristics, and high-resolution details while keeping every element authentic and untouched except for the expanded ultra-wide field of view.` }
             ]},
             { id: 'custom', fa: 'fa-pen-ruler', presets: [] }
         ];
@@ -587,7 +607,7 @@
                 const btn = document.createElement('button');
                 btn.dataset.tab = cat.id;
                 btn.className = 'main-tab-btn';
-                btn.innerHTML = `<i class="fas ${cat.fa}"></i><span data-i18n="cat.${cat.id}.name"></span>`;
+                btn.innerHTML = `<i class="fas ${cat.fa}"></i><span data-i18n="cat.${cat.id}.name"></span>${cat.isNew ? '<span class="badge-new" data-i18n="badge.new"></span>' : ''}`;
                 nav.appendChild(btn);
             });
         }
@@ -610,8 +630,10 @@
             const main = document.getElementById('main-panels');
             CATEGORIES.forEach(cat => {
                 const isCustom = cat.id === 'custom';
+                const hasMode = !cat.editorNative;
+                const nPreset = hasMode ? 3 : 2, nIntensity = hasMode ? 4 : 3, nRatio = hasMode ? 5 : 4, nCount = hasMode ? 6 : 5;
                 const stepHead = (num, key) => `<div class="flex items-center gap-2 mb-4"><div class="step-num">${num}</div><h2 class="text-lg font-bold" data-i18n="${key}"></h2></div>`;
-                const modeSection = `
+                const modeSection = !hasMode ? '' : `
                     <div class="card p-5">
                         ${stepHead(2, 'wiz.step-mode')}
                         <div id="${cat.id}-mode-grid" class="space-y-2">
@@ -627,9 +649,9 @@
                     </div>`;
                 const presetSection = isCustom ? '' : `
                     <div class="card p-5">
-                        ${stepHead(3, 'wiz.step2')}
+                        ${stepHead(nPreset, 'wiz.step2')}
                         <div id="${cat.id}-preset-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            ${cat.presets.map((p, i) => `<button type="button" class="preset-btn${i === 0 ? ' selected' : ''}" data-preset="${p.id}" data-i18n="preset.${p.id}">${p.name}</button>`).join('')}
+                            ${cat.presets.map((p, i) => `<button type="button" class="preset-btn${i === 0 ? ' selected' : ''}" data-preset="${p.id}"><span data-i18n="preset.${p.id}">${p.name}</span>${p.isNew ? '<span class="badge-new" data-i18n="badge.new"></span>' : ''}</button>`).join('')}
                         </div>
                         <div class="mt-4">
                             <p class="text-sm font-semibold mb-2" style="color:var(--muted)" data-i18n="wiz.custom-label"></p>
@@ -668,7 +690,7 @@
                         </div>
                         ${modeSection}${presetSection}${customSection}
                         <div class="card p-5">
-                            ${stepHead(4, 'wiz.step3')}
+                            ${stepHead(nIntensity, 'wiz.step3')}
                             <div id="${cat.id}-intensity-grid" class="grid grid-cols-2 gap-2">
                                 <button type="button" class="opt-btn" data-intensity="subtle" data-i18n="int.subtle"></button>
                                 <button type="button" class="opt-btn selected" data-intensity="medium" data-i18n="int.medium"></button>
@@ -677,13 +699,13 @@
                             </div>
                         </div>
                         <div class="card p-5">
-                            ${stepHead(5, 'wiz.step4')}
+                            ${stepHead(nRatio, 'wiz.step4')}
                             <div id="${cat.id}-ratio-grid" class="grid grid-cols-2 gap-2">
                                 ${RATIOS.map(r => `<button type="button" class="opt-btn${r === '3:4' ? ' selected' : ''}" data-ratio="${r}"><span class="ratio-icon" style="aspect-ratio:${r.replace(':', '/')}"></span>${r} <span data-i18n="ratio.${r}"></span></button>`).join('')}
                             </div>
                         </div>
                         <div class="card p-5">
-                            ${stepHead(6, 'wiz.step5')}
+                            ${stepHead(nCount, 'wiz.step5')}
                             <div id="${cat.id}-count-grid" class="count-btn-grid">
                                 ${Array.from({ length: 10 }, (_, i) => `<button type="button"${i === 3 ? ' class="selected"' : ''} data-count="${i + 1}">${i + 1}</button>`).join('')}
                             </div>
@@ -730,6 +752,10 @@
             }
             const preset = cat.presets.find(p => p.id === state.presetId);
             let p = INTENSITY[state.intensity] + preset.prompt;
+            if (cat.editorNative) {
+                if (custom) p += ` Additional instruction: ${custom}.`;
+                return p;
+            }
             if (isEditor) {
                 p = EDITOR_TRANSFORM + p.split(PRESERVE).join(PRESERVE_EDITOR).split(PRESERVE_FOG).join(PRESERVE_EDITOR);
             }
