@@ -11,12 +11,14 @@
                 'a11y.close-preview': 'Tutup pratinjau',
                 'nav.home': 'Beranda',
                 'nav.section': 'Color Grading',
+                'nav.section-editing': 'AI Editing',
+                'nav.section-studio': 'Studio',
                 'home.title': 'Selamat datang di Canvla AI',
                 'home.sub': 'Ubah fotomu jadi karya sinematik dengan color grading AI — pilih tema, proses, selesai.',
                 'home.s1': 'Unggah foto',
                 'home.s1d': 'JPG, PNG, WEBP, atau HEIC dari iPhone — semua bisa.',
                 'home.s2': 'Pilih tema color grading',
-                'home.s2d': '88 tema di 12 kategori — dari Hutan Berkabut sampai Ganti Suasana. Atau tulis prompt sendiri di Studio Kustom.',
+                'home.s2d': '88 tema di 16 kategori — dari Hutan Berkabut sampai Bayangan Jendela. Atau tulis prompt sendiri di Studio Kustom.',
                 'home.s3': 'Proses',
                 'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu unduh hasilnya.',
                 'home.note': 'Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.',
@@ -75,8 +77,17 @@
                 'cat.travel.desc': 'Warna khas destinasi dunia',
                 'cat.food.name': 'Makanan & Produk',
                 'cat.food.desc': 'Foto makanan dan produk menggugah',
-                'cat.suasana.name': 'Ganti Suasana',
-                'cat.suasana.desc': 'Ganti latar & lensa — wajah tetap asli',
+                'cat.cloud-inversion.name': 'Lautan Awan Puncak',
+                'cat.cloud-inversion.desc': 'Pindah ke puncak gunung di atas lautan awan — wajah tetap asli',
+                'cat.blue-hour-env.name': 'Blue Hour Senja',
+                'cat.blue-hour-env.desc': 'Suasana langit biru senja usai matahari terbenam — wajah tetap asli',
+                'cat.ultra-wide.name': 'Ultra-Wide 0.5x',
+                'cat.ultra-wide.desc': 'Perspektif lensa ultra-wide 0.5x smartphone — subjek tetap asli',
+                'cat.dslr-portra.name': 'DSLR Portra 85mm',
+                'cat.dslr-portra.desc': 'Bokeh 85mm f/1.8 + grading Kodak Portra 400 — subjek tetap asli',
+                'cat.window-shadow.name': 'Bayangan Jendela',
+                'cat.window-shadow.desc': 'Cahaya matahari hangat + bayangan kisi jendela — subjek tetap asli',
+                'wiz.step-extra': 'Prompt Tambahan (Opsional)',
                 'cat.custom.name': 'Studio Kustom',
                 'cat.custom.desc': 'Tulis prompt color grading sendiri',
                 'preset.teal-orange': 'Teal & Oranye Blockbuster',
@@ -196,12 +207,14 @@
                 'a11y.close-preview': 'Close preview',
                 'nav.home': 'Home',
                 'nav.section': 'Color Grading',
+                'nav.section-editing': 'AI Editing',
+                'nav.section-studio': 'Studio',
                 'home.title': 'Welcome to Canvla AI',
                 'home.sub': 'Turn your photos into cinematic works with AI color grading — pick a theme, generate, done.',
                 'home.s1': 'Upload a photo',
                 'home.s1d': 'JPG, PNG, WEBP, or iPhone HEIC — all supported.',
                 'home.s2': 'Pick a color grading theme',
-                'home.s2d': '88 themes across 12 categories — from Foggy Forest to Scene & Lens. Or write your own in Custom Studio.',
+                'home.s2d': '88 themes across 16 categories — from Foggy Forest to Window Light Shadow. Or write your own in Custom Studio.',
                 'home.s3': 'Generate',
                 'home.s3d': 'Set intensity, ratio (10 options), and count (1-10 photos) — then download the results.',
                 'home.note': 'Free via Google AI Studio — no API key needed. Run this app inside AI Studio Canvas.',
@@ -260,8 +273,17 @@
                 'cat.travel.desc': 'Signature destination palettes',
                 'cat.food.name': 'Food & Product',
                 'cat.food.desc': 'Appetizing food and product shots',
-                'cat.suasana.name': 'Scene & Lens',
-                'cat.suasana.desc': 'Swap the environment & lens — face stays intact',
+                'cat.cloud-inversion.name': 'Cloud Inversion',
+                'cat.cloud-inversion.desc': 'Move to a mountaintop above a sea of clouds — face stays intact',
+                'cat.blue-hour-env.name': 'Blue Hour',
+                'cat.blue-hour-env.desc': 'Deep-blue twilight just after sunset — face stays intact',
+                'cat.ultra-wide.name': 'Ultra-Wide 0.5x',
+                'cat.ultra-wide.desc': '0.5x ultra-wide smartphone lens perspective — subject stays intact',
+                'cat.dslr-portra.name': 'DSLR Portra 85mm',
+                'cat.dslr-portra.desc': '85mm f/1.8 bokeh + Kodak Portra 400 grade — subject stays intact',
+                'cat.window-shadow.name': 'Window Light Shadow',
+                'cat.window-shadow.desc': 'Warm sunlight with window-lattice shadows — subject stays intact',
+                'wiz.step-extra': 'Additional Prompt (Optional)',
                 'cat.custom.name': 'Custom Studio',
                 'cat.custom.desc': 'Write your own grading prompt',
                 'preset.teal-orange': 'Teal & Orange Blockbuster',
@@ -520,11 +542,19 @@
                 { id: 'fresh-vivid', name: 'Fresh Vivid Product', prompt: `Transform this image with a fresh vivid grade. Boost crisp natural saturation, cool clean brightness, dewy fresh texture detail, and an energetic healthy market-fresh appeal, ${PRESERVE}` },
                 { id: 'golden-crispy', name: 'Golden Crispy Warm', prompt: `Transform this image with a golden crispy food grade. Deepen the fried golden-brown tones, add sizzling warm light, crunchy texture emphasis, and an irresistible comfort-food warmth, ${PRESERVE}` }
             ]},
-            { id: 'suasana', fa: 'fa-mountain-sun', editorNative: true, isNew: true, presets: [
-                { id: 'cloud-inversion', name: 'Cloud Inversion', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top cloud inversion: an endless sea of clouds below, sunrise light, crisp mountain air, layered cloud formations, physically accurate perspective and natural color grading.` },
-                { id: 'blue-hour-env', name: 'Blue Hour', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Transform the environment into blue hour just after sunset: deep blue sky gradients, cool ambient illumination, soft contrast, realistic twilight colors, and subtle artificial light reflections where appropriate.` },
-                { id: 'ultra-wide', name: 'Ultra-Wide 0.5x', isNew: true, prompt: `Preserve the person, their identity, pose, clothing, facial details, and the overall composition exactly. Transform the image into a 0.5x ultra-wide smartphone camera perspective by naturally expanding the field of view without changing the camera angle. Make the subject appear slightly smaller while revealing more of the surrounding environment. Preserve the realistic perspective distortion typical of a 13mm ultra-wide smartphone lens, with slightly stretched edges but without unnatural distortion on people. Keep the image highly photorealistic with natural lighting, realistic shadows, sharp textures, HDR details, balanced exposure, and true-to-life colors. Maintain a peaceful atmosphere and make it look like a real 0.5x ultra-wide photo taken directly from a modern smartphone, not an AI-generated one. Add subtle lens correction, natural depth, realistic optical characteristics, and high-resolution details while keeping every element authentic and untouched except for the expanded ultra-wide field of view.` },
-                { id: 'dslr-portra', name: 'DSLR Portra 85mm', isNew: true, prompt: `Preserve the original person, face, identity, pose, clothing, body proportions, camera angle, framing, lighting, and background exactly. Do not add, remove, or replace any objects. Keep the subject razor-sharp while applying an authentic Sony A7 IV + FE 85mm f/1.8 full-frame depth of field with creamy optical bokeh, smooth focus falloff, natural lens compression, subtle foreground blur, and progressive background blur based on distance. Avoid portrait-mode cutout edges or Gaussian blur. Preserve natural textures, lighting, perspective, and shadows. Apply cinematic Kodak Portra 400 color grading with soft HDR, gentle bloom, rich contrast, darker olive greens, warm golden highlights, faded blacks, a subtle vignette, and realistic DSLR lens rendering, 8K HDR, photorealistic, no artifacts, oversharpening, excessive saturation, text, or watermark.` },
+            { id: 'cloud-inversion', fa: 'fa-mountain-sun', editorNative: true, presets: [
+                { id: 'cloud-inversion', name: 'Cloud Inversion', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top cloud inversion: an endless sea of clouds below, sunrise light, crisp mountain air, layered cloud formations, physically accurate perspective and natural color grading.` }
+            ]},
+            { id: 'blue-hour-env', fa: 'fa-cloud-moon', editorNative: true, presets: [
+                { id: 'blue-hour-env', name: 'Blue Hour', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Transform the environment into blue hour just after sunset: deep blue sky gradients, cool ambient illumination, soft contrast, realistic twilight colors, and subtle artificial light reflections where appropriate.` }
+            ]},
+            { id: 'ultra-wide', fa: 'fa-expand', editorNative: true, presets: [
+                { id: 'ultra-wide', name: 'Ultra-Wide 0.5x', isNew: true, prompt: `Preserve the person, their identity, pose, clothing, facial details, and the overall composition exactly. Transform the image into a 0.5x ultra-wide smartphone camera perspective by naturally expanding the field of view without changing the camera angle. Make the subject appear slightly smaller while revealing more of the surrounding environment. Preserve the realistic perspective distortion typical of a 13mm ultra-wide smartphone lens, with slightly stretched edges but without unnatural distortion on people. Keep the image highly photorealistic with natural lighting, realistic shadows, sharp textures, HDR details, balanced exposure, and true-to-life colors. Maintain a peaceful atmosphere and make it look like a real 0.5x ultra-wide photo taken directly from a modern smartphone, not an AI-generated one. Add subtle lens correction, natural depth, realistic optical characteristics, and high-resolution details while keeping every element authentic and untouched except for the expanded ultra-wide field of view.` }
+            ]},
+            { id: 'dslr-portra', fa: 'fa-camera', editorNative: true, isNew: true, presets: [
+                { id: 'dslr-portra', name: 'DSLR Portra 85mm', isNew: true, prompt: `Preserve the original person, face, identity, pose, clothing, body proportions, camera angle, framing, lighting, and background exactly. Do not add, remove, or replace any objects. Keep the subject razor-sharp while applying an authentic Sony A7 IV + FE 85mm f/1.8 full-frame depth of field with creamy optical bokeh, smooth focus falloff, natural lens compression, subtle foreground blur, and progressive background blur based on distance. Avoid portrait-mode cutout edges or Gaussian blur. Preserve natural textures, lighting, perspective, and shadows. Apply cinematic Kodak Portra 400 color grading with soft HDR, gentle bloom, rich contrast, darker olive greens, warm golden highlights, faded blacks, a subtle vignette, and realistic DSLR lens rendering, 8K HDR, photorealistic, no artifacts, oversharpening, excessive saturation, text, or watermark.` }
+            ]},
+            { id: 'window-shadow', fa: 'fa-border-all', editorNative: true, isNew: true, presets: [
                 { id: 'window-shadow', name: 'Window Light Shadow', isNew: true, prompt: `Use the uploaded image strictly as the content reference. Keep every person, face, object, product, pose, clothing, composition, camera angle, perspective, and framing exactly identical to the source photo — do NOT add, remove, move, or replace any physical object. Only transform the lighting: relight the scene with strong warm directional golden sunlight streaming in from one side, casting crisp realistic window-pane and lattice gobo shadow patterns across the subject, surfaces, and background. The shadow pattern must bend and wrap naturally over the three-dimensional shapes it falls on, with physically accurate perspective, soft penumbra edges, and believable light falloff. Deepen the ambient areas outside the sunbeams into moody warm shadow, add gentle golden contrast and sun-kissed highlights where the light strikes, and keep the result fully photorealistic like a real photograph taken beside a sunlit window, in ultra-high-definition detail, not AI-generated artwork.` }
             ]},
             { id: 'custom', fa: 'fa-pen-ruler', presets: [] }
@@ -609,7 +639,15 @@
 
         function buildSidebar() {
             const nav = document.getElementById('sidebar-nav');
+            const SECTION_BEFORE = { 'cloud-inversion': 'nav.section-editing', custom: 'nav.section-studio' };
             CATEGORIES.forEach(cat => {
+                if (SECTION_BEFORE[cat.id]) {
+                    const label = document.createElement('p');
+                    label.className = 'text-[0.7rem] font-bold uppercase tracking-wider px-3 mt-4 mb-1';
+                    label.style.color = 'var(--muted)';
+                    label.dataset.i18n = SECTION_BEFORE[cat.id];
+                    nav.appendChild(label);
+                }
                 const btn = document.createElement('button');
                 btn.dataset.tab = cat.id;
                 btn.className = 'main-tab-btn';
@@ -653,14 +691,15 @@
                             </button>
                         </div>
                     </div>`;
+                const single = cat.presets.length === 1;
                 const presetSection = isCustom ? '' : `
                     <div class="card p-5">
-                        ${stepHead(nPreset, 'wiz.step2')}
-                        <div id="${cat.id}-preset-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${stepHead(nPreset, single ? 'wiz.step-extra' : 'wiz.step2')}
+                        <div id="${cat.id}-preset-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2${single ? ' hidden' : ''}">
                             ${cat.presets.map((p, i) => `<button type="button" class="preset-btn${i === 0 ? ' selected' : ''}" data-preset="${p.id}"><span data-i18n="preset.${p.id}">${p.name}</span>${p.isNew ? '<span class="badge-new" data-i18n="badge.new"></span>' : ''}</button>`).join('')}
                         </div>
-                        <div class="mt-4">
-                            <p class="text-sm font-semibold mb-2" style="color:var(--muted)" data-i18n="wiz.custom-label"></p>
+                        <div class="${single ? '' : 'mt-4'}">
+                            ${single ? '' : '<p class="text-sm font-semibold mb-2" style="color:var(--muted)" data-i18n="wiz.custom-label"></p>'}
                             <textarea id="${cat.id}-custom-input" rows="2" data-i18n-placeholder="wiz.custom-placeholder"></textarea>
                         </div>
                     </div>`;
