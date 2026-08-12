@@ -396,7 +396,7 @@
                 'login.session-ended': 'Session ended! This account is being used on another device. You will be returned to the login page.'
             }
         };
-        let LANG = localStorage.getItem('app_language') || 'id';
+        let LANG = localStorage.getItem('app_language') || (navigator.language && navigator.language.toLowerCase().startsWith('id') ? 'id' : 'en');
         const t = (k) => (T[LANG] && T[LANG][k]) || T.id[k] || k;
         const BACKEND_MSG_EN = {
             'Akses tidak valid.': 'Invalid access.',
