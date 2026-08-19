@@ -656,20 +656,6 @@
             });
         }
 
-        function buildMobileNav() {
-            const nav = document.getElementById('mobile-nav');
-            let htmlStr = `<button data-tab="beranda" class="active"><i class="fas fa-house"></i><span data-i18n="nav.home"></span></button>`;
-            CATEGORIES.slice(0, 3).forEach(cat => {
-                htmlStr += `<button data-tab="${cat.id}"><i class="fas ${cat.fa}"></i><span data-i18n="cat.${cat.id}.name"></span></button>`;
-            });
-            htmlStr += `<button id="mobile-more"><i class="fas fa-bars"></i><span>Menu</span></button>`;
-            nav.innerHTML = htmlStr;
-            document.getElementById('mobile-more').addEventListener('click', () => {
-                sidebar.classList.add('open');
-                toggleBtn.classList.add('sidebar-open');
-            });
-        }
-
         function buildPanels() {
             const main = document.getElementById('main-panels');
             CATEGORIES.forEach(cat => {
@@ -1066,7 +1052,6 @@
 
         // === BOOT ===
         buildSidebar();
-        buildMobileNav();
         buildPanels();
         CATEGORIES.forEach(initCategory);
         document.querySelectorAll('.lang-btn').forEach(x => x.classList.toggle('selected', x.dataset.lang === LANG));

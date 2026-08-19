@@ -148,23 +148,10 @@
             background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #1a1206;
         }
 
-        .mobile-bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; display: flex; z-index: 1100;
-            background: var(--panel); border-top: 1px solid var(--line);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        .mobile-bottom-nav button {
-            flex: 1; min-height: 58px; background: transparent; border: none; color: var(--muted);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-            font-size: 0.65rem; cursor: pointer;
-        }
-        .mobile-bottom-nav button.active { color: var(--accent); }
-        .mobile-bottom-nav button i { font-size: 1.1rem; }
-        @media (min-width: 1024px) { .mobile-bottom-nav { display: none; } }
         @media (max-width: 1023px) {
             .sidebar { transform: translateX(-280px); }
             .sidebar.open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.6); }
-            .main-content-wrapper { margin-left: 0; width: 100%; padding: 1rem 1rem 6rem; }
+            .main-content-wrapper { margin-left: 0; width: 100%; padding: 1rem; }
             .toggle-sidebar-btn { left: 12px; }
             .toggle-sidebar-btn.sidebar-open { left: 292px; }
         }
