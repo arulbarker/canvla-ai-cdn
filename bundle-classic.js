@@ -18,7 +18,7 @@
                 'home.s1': 'Unggah foto',
                 'home.s1d': 'JPG, PNG, WEBP, atau HEIC dari iPhone — semua bisa.',
                 'home.s2': 'Pilih tema color grading',
-                'home.s2d': '102 tema di 19 kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.',
+                'home.s2d': '105 tema di 19 kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.',
                 'home.s3': 'Proses',
                 'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu unduh hasilnya.',
                 'home.note': 'Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.',
@@ -37,6 +37,10 @@
                 'wiz.upload-formats': 'JPG · PNG · WEBP · HEIC',
                 'wiz.change-photo': 'Ganti Foto',
                 'wiz.custom-label': 'Prompt Tambahan (opsional)',
+                'wiz.remove-people': 'Hapus Orang Lain',
+                'wiz.rp-off': 'Tidak',
+                'wiz.rp-on': 'Ya, hapus',
+                'wiz.remove-people-desc': 'Kalau aktif, semua orang lain di foto dihapus dan hanya subjek utama yang tersisa — background ditambal otomatis.',
                 'wiz.custom-placeholder': 'Tulis instruksi tambahan...',
                 'wiz.custom-required': 'Tulis prompt color grading kamu di sini...',
                 'wiz.generate': 'Proses Foto',
@@ -77,8 +81,8 @@
                 'cat.travel.desc': 'Warna khas destinasi dunia',
                 'cat.food.name': 'Makanan & Produk',
                 'cat.food.desc': 'Foto makanan dan produk menggugah',
-                'cat.cloud-inversion.name': 'Lautan Awan Puncak',
-                'cat.cloud-inversion.desc': 'Pindah ke puncak gunung di atas lautan awan — wajah tetap asli',
+                'cat.cloud-inversion.name': 'Lautan Awan',
+                'cat.cloud-inversion.desc': 'Puncak gunung di atas lautan awan: sunrise, sunset emas, blue hour, kabut — wajah tetap asli',
                 'cat.blue-hour-env.name': 'Blue Hour Senja',
                 'cat.blue-hour-env.desc': 'Suasana langit biru senja usai matahari terbenam — wajah tetap asli',
                 'cat.ultra-wide.name': 'Ultra-Wide 0.5x',
@@ -177,7 +181,10 @@
                 'preset.dark-rustic': 'Rustic Gelap',
                 'preset.fresh-vivid': 'Produk Segar Cerah',
                 'preset.golden-crispy': 'Gurih Keemasan',
-                'preset.cloud-inversion': 'Lautan Awan Puncak',
+                'preset.cloud-inversion': 'Sunrise Sea of Clouds',
+                'preset.golden-sunset-clouds': 'Golden Sunset',
+                'preset.blue-hour-clouds': 'Blue Hour',
+                'preset.misty-dawn-clouds': 'Misty Dawn',
                 'preset.blue-hour-env': 'Blue Hour Senja',
                 'preset.ultra-wide': 'Ultra-Wide 0.5x',
                 'preset.dslr-portra': 'DSLR Portra 85mm',
@@ -232,7 +239,7 @@
                 'home.s1': 'Upload a photo',
                 'home.s1d': 'JPG, PNG, WEBP, or iPhone HEIC — all supported.',
                 'home.s2': 'Pick a color grading theme',
-                'home.s2d': '102 themes across 19 categories — from Foggy Forest to Premium Cinematic. Or write your own in Custom Studio.',
+                'home.s2d': '105 themes across 19 categories — from Foggy Forest to Premium Cinematic. Or write your own in Custom Studio.',
                 'home.s3': 'Generate',
                 'home.s3d': 'Set intensity, ratio (10 options), and count (1-10 photos) — then download the results.',
                 'home.note': 'Free via Google AI Studio — no API key needed. Run this app inside AI Studio Canvas.',
@@ -251,6 +258,10 @@
                 'wiz.upload-formats': 'JPG · PNG · WEBP · HEIC',
                 'wiz.change-photo': 'Change Photo',
                 'wiz.custom-label': 'Custom Prompt (optional)',
+                'wiz.remove-people': 'Remove Other People',
+                'wiz.rp-off': 'No',
+                'wiz.rp-on': 'Yes, remove',
+                'wiz.remove-people-desc': 'When on, all other people in the photo are removed and only the main subject remains — background auto-filled.',
                 'wiz.custom-placeholder': 'Add extra instructions...',
                 'wiz.custom-required': 'Write your color grading prompt here...',
                 'wiz.generate': 'Generate',
@@ -291,8 +302,8 @@
                 'cat.travel.desc': 'Signature destination palettes',
                 'cat.food.name': 'Food & Product',
                 'cat.food.desc': 'Appetizing food and product shots',
-                'cat.cloud-inversion.name': 'Cloud Inversion',
-                'cat.cloud-inversion.desc': 'Move to a mountaintop above a sea of clouds — face stays intact',
+                'cat.cloud-inversion.name': 'Sea of Clouds',
+                'cat.cloud-inversion.desc': 'Mountaintop above a sea of clouds: sunrise, golden sunset, blue hour, misty dawn — face stays intact',
                 'cat.blue-hour-env.name': 'Blue Hour',
                 'cat.blue-hour-env.desc': 'Deep-blue twilight just after sunset — face stays intact',
                 'cat.ultra-wide.name': 'Ultra-Wide 0.5x',
@@ -391,7 +402,10 @@
                 'preset.dark-rustic': 'Dark Rustic Food',
                 'preset.fresh-vivid': 'Fresh Vivid Product',
                 'preset.golden-crispy': 'Golden Crispy Warm',
-                'preset.cloud-inversion': 'Cloud Inversion',
+                'preset.cloud-inversion': 'Sunrise Sea of Clouds',
+                'preset.golden-sunset-clouds': 'Golden Sunset',
+                'preset.blue-hour-clouds': 'Blue Hour',
+                'preset.misty-dawn-clouds': 'Misty Dawn',
                 'preset.blue-hour-env': 'Blue Hour',
                 'preset.ultra-wide': 'Ultra-Wide 0.5x',
                 'preset.dslr-portra': 'DSLR Portra 85mm',
@@ -472,6 +486,7 @@
         const EDITOR_TRANSFORM = "Fully transform this photo in the described style: dramatically enhance the environment, sky, vegetation, atmosphere, and lighting to match the style completely. Atmospheric elements such as fog, mist, clouds, and volumetric light rays may be added or intensified realistically, and existing background elements may be enriched, deepened, and beautified. ";
         const PRESERVE_EDITOR = "Preserve the main subject with absolute fidelity: the exact same person or people with identical faces, identity, expressions, poses, clothing, and body proportions — do not add, remove, or alter any person. Keep the same camera angle, perspective, and framing. The final result must be fully photorealistic like a premium DSLR photograph in ultra-high-definition 4K quality with razor-sharp details, HDR enhancement, realistic textures, and natural color harmony, not AI-generated artwork.";
         const PRESERVE_FOG = "Do NOT add, remove, replace, move, or invent ANY physical object — no new trees, plants, people, buildings, props, or scenery of any kind; ONLY fog, mist, atmosphere, light, and color may be changed or added. Keep the original composition, subject, pose, clothing, facial features, expression, camera angle, perspective, framing, and every background element exactly identical to the source photo. Increase overall image quality to ultra-high-definition 4K resolution with razor-sharp details, HDR enhancement, realistic textures, balanced contrast, and natural color harmony. The final result must look like the exact same photograph captured in dense fog, fully photorealistic, not AI-generated artwork.";
+        const REMOVE_PEOPLE = "IMPORTANT OVERRIDE that takes priority over any earlier rule about preserving people: remove every other person from the scene except the single main subject (the most prominent person in the foreground). Keep the main subject completely identical — same face, identity, expression, pose, clothing, and position. Cleanly and photorealistically reconstruct the background, ground, and surroundings where the other people were removed, matching the existing lighting, perspective, textures, and colors, with no smears, ghosts, blurs, or leftover body parts. The final image must contain only the main subject and look like a natural, untouched photograph.";
         const CATEGORIES = [
             { id: 'cinematic', fa: 'fa-film', presets: [
                 { id: 'teal-orange', name: 'Teal & Orange Blockbuster', prompt: `Transform this image with a Hollywood blockbuster teal and orange color grade. Push shadows and midtones toward rich cinematic teal, warm the skin tones and highlights toward golden orange, and add gentle film contrast with a soft anamorphic feel, ${PRESERVE}` },
@@ -579,8 +594,11 @@
                 { id: 'fresh-vivid', name: 'Fresh Vivid Product', prompt: `Transform this image with a fresh vivid grade. Boost crisp natural saturation, cool clean brightness, dewy fresh texture detail, and an energetic healthy market-fresh appeal, ${PRESERVE}` },
                 { id: 'golden-crispy', name: 'Golden Crispy Warm', prompt: `Transform this image with a golden crispy food grade. Deepen the fried golden-brown tones, add sizzling warm light, crunchy texture emphasis, and an irresistible comfort-food warmth, ${PRESERVE}` }
             ]},
-            { id: 'cloud-inversion', fa: 'fa-mountain-sun', editorNative: true, presets: [
-                { id: 'cloud-inversion', name: 'Cloud Inversion', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top cloud inversion: an endless sea of clouds below, sunrise light, crisp mountain air, layered cloud formations, physically accurate perspective and natural color grading.` }
+            { id: 'cloud-inversion', fa: 'fa-mountain-sun', editorNative: true, isNew: true, presets: [
+                { id: 'cloud-inversion', name: 'Sunrise Sea of Clouds', prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top cloud inversion: an endless sea of clouds below, warm sunrise light, crisp mountain air, layered cloud formations, soft volumetric light rays, physically accurate perspective and natural color grading.` },
+                { id: 'golden-sunset-clouds', name: 'Golden Sunset', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Transform the weather into a natural golden sunset with a dramatic but realistic sea of clouds filling the valleys below, warm golden sunlight illuminating the landscape, the mountain clearly visible above the clouds, soft volumetric light rays, realistic atmospheric haze, high dynamic range, natural colors, cinematic lighting, ultra-realistic, iPhone Smart HDR look without oversaturation or excessive orange tones.` },
+                { id: 'blue-hour-clouds', name: 'Blue Hour', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top sea of clouds at blue hour just after sunset: an endless ocean of clouds below in cool blue and indigo twilight, a soft ambient glow near the horizon, gentle volumetric light, deep-blue sky gradients, crisp cool mountain air, layered cloud formations, realistic atmospheric haze, high dynamic range, physically accurate perspective and natural color grading.` },
+                { id: 'misty-dawn-clouds', name: 'Misty Dawn', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Replace the environment with a mountain-top sea of clouds at a soft misty dawn: a calm endless ocean of clouds below wrapped in gentle low mist, pale pastel morning light, delicate soft volumetric rays, muted low-contrast tones, crisp cool air, layered cloud formations, a serene and dreamy atmosphere, physically accurate perspective and natural photorealistic color grading.` }
             ]},
             { id: 'blue-hour-env', fa: 'fa-cloud-moon', editorNative: true, presets: [
                 { id: 'blue-hour-env', name: 'Blue Hour', isNew: true, prompt: `Use the uploaded image strictly as the identity reference only. Treat the uploaded image exclusively as an identity reference, never as a pose, lighting, composition, or facial orientation reference unless explicitly instructed. Preserve the person's unique biological identity with absolute consistency, including facial structure, hairstyle, hairline, forehead, eyebrows, eyes, nose, lips, ears, beard, skin tone, facial proportions, body proportions, height, natural physique, clothing, accessories, pose, framing, perspective, camera angle and composition. Do NOT regenerate, redraw, beautify, age, de-age, reshape, replace or modify any part of the subject. Only transform the atmosphere, weather, lighting and environment. Maintain ultra-photorealism with physically accurate lighting, natural colors and realistic environmental interaction. Transform the environment into blue hour just after sunset: deep blue sky gradients, cool ambient illumination, soft contrast, realistic twilight colors, and subtle artificial light reflections where appropriate.` }
@@ -795,6 +813,14 @@
                                 ${Array.from({ length: 10 }, (_, i) => `<button type="button"${i === 3 ? ' class="selected"' : ''} data-count="${i + 1}">${i + 1}</button>`).join('')}
                             </div>
                         </div>
+                        <div class="card p-5">
+                            <h2 class="text-lg font-bold mb-3"><i class="fas fa-user-slash accent-text mr-2"></i><span data-i18n="wiz.remove-people"></span></h2>
+                            <div id="${cat.id}-removepeople-grid" class="grid grid-cols-2 gap-2">
+                                <button type="button" class="opt-btn selected" data-removepeople="off" data-i18n="wiz.rp-off"></button>
+                                <button type="button" class="opt-btn" data-removepeople="on" data-i18n="wiz.rp-on"></button>
+                            </div>
+                            <p class="text-xs mt-2" style="color:var(--muted)" data-i18n="wiz.remove-people-desc"></p>
+                        </div>
                         <button type="button" id="${cat.id}-generate-btn" class="btn-generate" disabled><i class="fas fa-bolt"></i><span data-i18n="wiz.generate"></span></button>
                         <button type="button" id="${cat.id}-stop-btn" class="btn-stop hidden"><i class="fas fa-stop-circle"></i><span data-i18n="wiz.stop"></span></button>
                     </div>
@@ -831,21 +857,22 @@
         function buildPrompt(cat, state) {
             const custom = document.getElementById(`${cat.id}-custom-input`).value.trim();
             const isEditor = state.mode === 'editor';
+            const rp = state.removePeople ? ` ${REMOVE_PEOPLE}` : '';
             if (cat.id === 'custom') {
                 if (!custom) return null;
-                return isEditor ? `${custom}. ${PRESERVE_EDITOR}` : `${custom}, ${PRESERVE}`;
+                return (isEditor ? `${custom}. ${PRESERVE_EDITOR}` : `${custom}, ${PRESERVE}`) + rp;
             }
             const preset = cat.presets.find(p => p.id === state.presetId);
             let p = INTENSITY[state.intensity] + preset.prompt;
             if (cat.editorNative) {
                 if (custom) p += ` Additional instruction: ${custom}.`;
-                return p;
+                return p + rp;
             }
             if (isEditor) {
                 p = EDITOR_TRANSFORM + p.split(PRESERVE).join(PRESERVE_EDITOR).split(PRESERVE_FOG).join(PRESERVE_EDITOR);
             }
             if (custom) p += ` Additional instruction: ${custom}.`;
-            return p;
+            return p + rp;
         }
 
         async function generateSingle(cat, state, index, prompt) {
@@ -913,7 +940,7 @@
 
         function initCategory(cat) {
             const $ = (suffix) => document.getElementById(`${cat.id}-${suffix}`);
-            const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, results: [], stopped: false };
+            const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, removePeople: false, results: [], stopped: false };
 
             const dropzone = $('dropzone'), input = $('upload-input');
             dropzone.addEventListener('click', () => input.click());
@@ -952,6 +979,7 @@
             bindGroup('intensity-grid', 'intensity', v => { state.intensity = v; });
             bindGroup('ratio-grid', 'ratio', v => { state.ratio = v; });
             bindGroup('count-grid', 'count', v => { state.count = Number(v); });
+            bindGroup('removepeople-grid', 'removepeople', v => { state.removePeople = v === 'on'; });
 
             $('generate-btn').addEventListener('click', () => runGeneration(cat, state, $));
             $('stop-btn').addEventListener('click', () => { state.stopped = true; });
