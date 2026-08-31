@@ -41,6 +41,9 @@
                 'wiz.rp-off': 'Tidak',
                 'wiz.rp-on': 'Ya, hapus',
                 'wiz.remove-people-desc': 'Kalau aktif, semua orang lain di foto dihapus dan hanya subjek utama yang tersisa — background ditambal otomatis.',
+                'wiz.ios-save-title': 'Simpan ke Galeri',
+                'wiz.ios-save-hint': 'Tekan & tahan gambar di bawah, lalu pilih "Simpan ke Foto" / "Add to Photos".',
+                'wiz.ios-save-close': 'Tutup',
                 'wiz.custom-placeholder': 'Tulis instruksi tambahan...',
                 'wiz.custom-required': 'Tulis prompt color grading kamu di sini...',
                 'wiz.generate': 'Proses Foto',
@@ -262,6 +265,9 @@
                 'wiz.rp-off': 'No',
                 'wiz.rp-on': 'Yes, remove',
                 'wiz.remove-people-desc': 'When on, all other people in the photo are removed and only the main subject remains — background auto-filled.',
+                'wiz.ios-save-title': 'Save to Photos',
+                'wiz.ios-save-hint': 'Press & hold the image below, then choose "Add to Photos".',
+                'wiz.ios-save-close': 'Close',
                 'wiz.custom-placeholder': 'Add extra instructions...',
                 'wiz.custom-required': 'Write your color grading prompt here...',
                 'wiz.generate': 'Generate',
@@ -672,8 +678,36 @@
             return canvas.toDataURL('image/jpeg', 0.85).split(',')[1];
         }
 
+        window.__isIOS = function () {
+            var ua = navigator.userAgent || '';
+            if (/iPad|iPhone|iPod/.test(ua)) return true;
+            if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) return true;
+            return false;
+        };
+        window.__iosShareOrSaveImage = async function (blob, filename) {
+            let file = null;
+            try { file = new File([blob], filename, { type: blob.type || 'image/png' }); } catch (e) { file = null; }
+            if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+                try { await navigator.share({ files: [file], title: filename }); return; }
+                catch (err) { if (err && err.name === 'AbortError') return; }
+            }
+            const url = URL.createObjectURL(blob);
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:1rem;';
+            const card = document.createElement('div');
+            card.style.cssText = 'background:#1e293b;border:1px solid #334155;border-radius:1rem;max-width:420px;width:100%;padding:1.25rem;text-align:center;';
+            card.innerHTML = `<p style="font-weight:700;font-size:1.05rem;color:#e2e8f0;margin-bottom:.25rem">${t('wiz.ios-save-title')}</p>`
+                + `<p style="font-size:.85rem;color:#94a3b8;margin-bottom:.75rem">${t('wiz.ios-save-hint')}</p>`
+                + `<img src="${url}" alt="" style="width:100%;border-radius:.6rem;-webkit-touch-callout:default;pointer-events:auto">`
+                + `<button type="button" style="margin-top:1rem;width:100%;padding:.6rem;border-radius:.6rem;background:#f59e0b;color:#111;font-weight:700;border:none">${t('wiz.ios-save-close')}</button>`;
+            overlay.appendChild(card);
+            document.body.appendChild(overlay);
+            const close = () => { overlay.remove(); URL.revokeObjectURL(url); };
+            overlay.addEventListener('click', (e) => { if (e.target === overlay || e.target.tagName === 'BUTTON') close(); });
+        };
         window.downloadDataURI = async function(dataUri, filename) {
             const blob = await (await fetch(dataUri)).blob();
+            if (window.__isIOS && window.__isIOS()) { await window.__iosShareOrSaveImage(blob, filename); return; }
             saveAs(blob, filename);
         };
         document.addEventListener('click', async (e) => {
@@ -985,6 +1019,19 @@
             $('stop-btn').addEventListener('click', () => { state.stopped = true; });
             $('download-all-btn').addEventListener('click', async () => {
                 const items = state.results.filter(Boolean);
+                if (window.__isIOS && window.__isIOS()) {
+                    const files = [];
+                    for (const item of items) {
+                        const blob = await (await fetch(`data:image/png;base64,${item.base64}`)).blob();
+                        try { files.push(new File([blob], item.filename, { type: blob.type || 'image/png' })); } catch (e) {}
+                    }
+                    if (files.length && navigator.canShare && navigator.canShare({ files })) {
+                        try { await navigator.share({ files, title: 'Canvla AI' }); return; }
+                        catch (err) { if (err && err.name === 'AbortError') return; }
+                    }
+                    for (const item of items) await window.downloadDataURI(`data:image/png;base64,${item.base64}`, item.filename);
+                    return;
+                }
                 for (const item of items) {
                     await window.downloadDataURI(`data:image/png;base64,${item.base64}`, item.filename);
                     await new Promise(r => setTimeout(r, 300));

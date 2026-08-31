@@ -11,4 +11,4 @@ Served via jsDelivr at:
 https://cdn.jsdelivr.net/gh/arulbarker/canvla-ai-cdn@main/<file>
 ```
 
-Last build: 2026-08-23T08:14:27.825Z
+Last build: 2026-08-31T10:12:19.085Z
