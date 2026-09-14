@@ -452,7 +452,16 @@
                 'login.session-ended': 'Session ended! This account is being used on another device. You will be returned to the login page.'
             }
         };
-        let LANG = localStorage.getItem('app_language') || (navigator.language && navigator.language.toLowerCase().startsWith('id') ? 'id' : 'en');
+        function detectDefaultLang() {
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+                const ID_ZONES = ['Asia/Jakarta','Asia/Pontianak','Asia/Makassar','Asia/Jayapura'];
+                if (ID_ZONES.includes(tz)) return 'id';
+                if (tz) return 'en';
+            } catch (e) {}
+            return (navigator.language && navigator.language.toLowerCase().startsWith('id')) ? 'id' : 'en';
+        }
+        let LANG = localStorage.getItem('app_language') || detectDefaultLang();
         const t = (k) => (T[LANG] && T[LANG][k]) || T.id[k] || k;
         const BACKEND_MSG_EN = {
             'Akses tidak valid.': 'Invalid access.',
