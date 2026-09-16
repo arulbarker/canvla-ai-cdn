@@ -100,6 +100,9 @@
                 'cat.flash-retro.desc': 'Gaya flash kamera saku & retro: Y2K, paparazzi, Polaroid, dll — subjek tetap asli',
                 'cat.senja-dusk.name': 'Senja Dusk',
                 'cat.senja-dusk.desc': 'Ubah langit foto jadi senja — gradient emas, pink, lavender, biru; langit lebih gelap tapi subjek tetap terang',
+                'cat.anime.name': 'Anime Frame',
+                'cat.anime.desc': 'Ubah foto jadi frame anime sinematik kualitas film — subjek tetap dikenali',
+                'nav.section-artistik': 'Artistik',
                 'wiz.step-extra': 'Prompt Tambahan (Opsional)',
                 'cat.custom.name': 'Studio Kustom',
                 'cat.custom.desc': 'Tulis prompt color grading sendiri',
@@ -197,6 +200,7 @@
                 'preset.dslr-portra': 'DSLR Portra 85mm',
                 'preset.window-shadow': 'Bayangan Jendela',
                 'preset.senja-dusk': 'Senja Dusk',
+                'preset.anime': 'Anime Frame',
                 'preset.feature-film-grade': 'Feature Film Grade',
                 'preset.monsoon-cinematic': 'Monsoon Cinematic',
                 'preset.rainy-cinematic': 'Rainy Cinematic',
@@ -329,6 +333,9 @@
                 'cat.flash-retro.desc': 'Point-and-shoot & retro flash looks: Y2K, paparazzi, Polaroid, and more — subject stays intact',
                 'cat.senja-dusk.name': 'Dusk Sky',
                 'cat.senja-dusk.desc': 'Turn any photo sky into dusk — golden, pink, lavender, blue gradient; darker sky but subject stays lit',
+                'cat.anime.name': 'Anime Frame',
+                'cat.anime.desc': 'Turn the photo into a cinematic film-quality anime frame — subject stays recognizable',
+                'nav.section-artistik': 'Artistic',
                 'wiz.step-extra': 'Additional Prompt (Optional)',
                 'cat.custom.name': 'Custom Studio',
                 'cat.custom.desc': 'Write your own grading prompt',
@@ -426,6 +433,7 @@
                 'preset.dslr-portra': 'DSLR Portra 85mm',
                 'preset.window-shadow': 'Window Light Shadow',
                 'preset.senja-dusk': 'Dusk Sky',
+                'preset.anime': 'Anime Frame',
                 'preset.feature-film-grade': 'Feature Film Grade',
                 'preset.monsoon-cinematic': 'Monsoon Cinematic',
                 'preset.rainy-cinematic': 'Rainy Cinematic',
@@ -659,6 +667,9 @@
             { id: 'senja-dusk', fa: 'fa-cloud-sun', editorNative: true, isNew: true, presets: [
                 { id: 'senja-dusk', name: 'Senja Dusk', isNew: true, prompt: `Use the uploaded photo as the exact base and content reference. Keep every person, face, identity, pose, clothing, object, composition, camera angle, perspective, and framing exactly identical to the source photo — do NOT add, remove, move, replace, or invent any physical object or person. Only transform the sky, atmosphere, and lighting. Turn the sky into ultra-realistic clouds at dusk with no visible sun, just a natural sky gradient from golden yellow and soft orange on the horizon to pink, lavender, and deep blue overhead. Keep the sky about 20% darker while keeping the people and foreground well-lit with natural lighting and realistic detail. Add soft atmospheric haze, cinematic HDR, smooth tonal transitions, rich natural green tones where vegetation exists, subtle light blooms, DSLR quality, premium landscape photography, 8K, fully photorealistic and natural without any AI-generated look.` }
             ]},
+            { id: 'anime', fa: 'fa-wand-magic-sparkles', editorNative: true, isNew: true, presets: [
+                { id: 'anime', name: 'Anime Frame', isNew: true, prompt: `Transform the uploaded photo into a breathtaking feature-film-quality anime frame while keeping the subject clearly recognizable. Analyze the image with pixel-level precision and faithfully preserve the main subject's face, facial features, hairstyle, expression, body proportions, clothing, accessories, pose, identity, and camera perspective so the person stays instantly recognizable in anime form. Maintain the original composition, camera angle, depth, shadows, and lighting direction. Re-render the whole scene in a premium modern anime style with clean line art, smooth cel shading, rich painterly backgrounds, soft ambient lighting, and cinematic color, creating a natural seamless blend between the character and the anime environment. Highly detailed, polished studio-quality anime illustration.` }
+            ]},
             { id: 'custom', fa: 'fa-pen-ruler', presets: [] }
         ];
 
@@ -769,7 +780,7 @@
 
         function buildSidebar() {
             const nav = document.getElementById('sidebar-nav');
-            const SECTION_BEFORE = { 'cloud-inversion': 'nav.section-editing', custom: 'nav.section-studio' };
+            const SECTION_BEFORE = { 'cloud-inversion': 'nav.section-editing', 'anime': 'nav.section-artistik', custom: 'nav.section-studio' };
             CATEGORIES.forEach(cat => {
                 if (SECTION_BEFORE[cat.id]) {
                     const label = document.createElement('p');
