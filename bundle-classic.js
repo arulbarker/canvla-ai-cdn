@@ -98,6 +98,8 @@
                 'cat.cinematic-pro.desc': 'Ubah foto biasa jadi sinematik premium: monsoon, hujan, long exposure, ladang bunga — subjek tetap asli',
                 'cat.flash-retro.name': 'Flash & Kamera Retro',
                 'cat.flash-retro.desc': 'Gaya flash kamera saku & retro: Y2K, paparazzi, Polaroid, dll — subjek tetap asli',
+                'cat.senja-dusk.name': 'Senja Dusk',
+                'cat.senja-dusk.desc': 'Ubah langit foto jadi senja — gradient emas, pink, lavender, biru; langit lebih gelap tapi subjek tetap terang',
                 'wiz.step-extra': 'Prompt Tambahan (Opsional)',
                 'cat.custom.name': 'Studio Kustom',
                 'cat.custom.desc': 'Tulis prompt color grading sendiri',
@@ -122,6 +124,7 @@
                 'preset.jungle-moss': 'Lumut Rimba Dalam',
                 'preset.warm-foggy-forest': 'Hutan Kabut Hangat',
                 'preset.moody-rainforest': 'Hutan Hujan Dramatis',
+                'preset.forest-river-green': 'Hijau Hutan Sungai',
                 'preset.golden-sunrise': 'Fajar Keemasan',
                 'preset.sunset-glow': 'Rona Senja',
                 'preset.honey-tone': 'Nuansa Madu Hangat',
@@ -130,6 +133,7 @@
                 'preset.beach-evening': 'Senja Pantai Hangat',
                 'preset.sunset-dream-haze': 'Kabut Mimpi Senja',
                 'preset.dreamy-golden': 'Golden Hour Dreamy',
+                'preset.honey-gold-cinematic': 'Honey Gold Sinematik',
                 'preset.dark-matte': 'Matte Gelap Dramatis',
                 'preset.midnight-blue': 'Biru Tengah Malam',
                 'preset.rainy-blues': 'Sendu Hujan',
@@ -192,6 +196,7 @@
                 'preset.ultra-wide': 'Ultra-Wide 0.5x',
                 'preset.dslr-portra': 'DSLR Portra 85mm',
                 'preset.window-shadow': 'Bayangan Jendela',
+                'preset.senja-dusk': 'Senja Dusk',
                 'preset.feature-film-grade': 'Feature Film Grade',
                 'preset.monsoon-cinematic': 'Monsoon Cinematic',
                 'preset.rainy-cinematic': 'Rainy Cinematic',
@@ -322,6 +327,8 @@
                 'cat.cinematic-pro.desc': 'Turn ordinary photos into premium cinematic scenes: monsoon, rain, long exposure, flower field — subject stays intact',
                 'cat.flash-retro.name': 'Flash & Retro Cam',
                 'cat.flash-retro.desc': 'Point-and-shoot & retro flash looks: Y2K, paparazzi, Polaroid, and more — subject stays intact',
+                'cat.senja-dusk.name': 'Dusk Sky',
+                'cat.senja-dusk.desc': 'Turn any photo sky into dusk — golden, pink, lavender, blue gradient; darker sky but subject stays lit',
                 'wiz.step-extra': 'Additional Prompt (Optional)',
                 'cat.custom.name': 'Custom Studio',
                 'cat.custom.desc': 'Write your own grading prompt',
@@ -346,6 +353,7 @@
                 'preset.jungle-moss': 'Deep Jungle Moss',
                 'preset.warm-foggy-forest': 'Warm Foggy Forest',
                 'preset.moody-rainforest': 'Moody Rainforest',
+                'preset.forest-river-green': 'Forest River Green',
                 'preset.golden-sunrise': 'Golden Sunrise',
                 'preset.sunset-glow': 'Sunset Glow',
                 'preset.honey-tone': 'Honey Warm Tone',
@@ -354,6 +362,7 @@
                 'preset.beach-evening': 'Warm Beach Evening',
                 'preset.sunset-dream-haze': 'Sunset Dream Haze',
                 'preset.dreamy-golden': 'Dreamy Golden Hour',
+                'preset.honey-gold-cinematic': 'Honey Gold Cinematic',
                 'preset.dark-matte': 'Dark Moody Matte',
                 'preset.midnight-blue': 'Midnight Blue',
                 'preset.rainy-blues': 'Rainy Blues',
@@ -416,6 +425,7 @@
                 'preset.ultra-wide': 'Ultra-Wide 0.5x',
                 'preset.dslr-portra': 'DSLR Portra 85mm',
                 'preset.window-shadow': 'Window Light Shadow',
+                'preset.senja-dusk': 'Dusk Sky',
                 'preset.feature-film-grade': 'Feature Film Grade',
                 'preset.monsoon-cinematic': 'Monsoon Cinematic',
                 'preset.rainy-cinematic': 'Rainy Cinematic',
@@ -527,7 +537,8 @@
                 { id: 'misty-pine', name: 'Misty Pine Morning', prompt: `Apply a cool misty pine forest color grade. Cool the palette toward blue-green conifer tones with a soft hazy morning tonal softness, muted cold light, and a quiet Nordic wilderness stillness, ${PRESERVE}` },
                 { id: 'jungle-moss', name: 'Deep Jungle Moss', prompt: `Apply a deep jungle moss color grade. Sink the palette into dark verdant greens with a soft canopy-shade light quality, moss-rich texture tones, and shadowed emerald depths, ${PRESERVE}` },
                 { id: 'warm-foggy-forest', name: 'Warm Foggy Forest', prompt: `Apply a warm foggy forest color grade. Give the scene a soft warm hazy tonal atmosphere with deep emerald-yellow greens, dark teal, mossy grey-green, and earthy brown tones, a gentle golden glow in the light, and a soft volumetric warmth, like a premium DSLR photograph on a warm misty morning, ${PRESERVE}` },
-                { id: 'moody-rainforest', name: 'Moody Rainforest', prompt: `Apply a cinematic dark forest color grade with cool emerald green and deep teal tones. Deepen the foggy misty tonal atmosphere, lower the overall exposure slightly, reduce the highlights, and deepen the blacks while preserving shadow detail. Desaturate warm colors except for natural skin tones. Add soft matte contrast, a subtle blue-gray haze, rich forest greens, and muted earthy browns, with soft tonal diffusion, gentle vignetting, and a moody premium rainforest ambiance, ${PRESERVE}` }
+                { id: 'moody-rainforest', name: 'Moody Rainforest', prompt: `Apply a cinematic dark forest color grade with cool emerald green and deep teal tones. Deepen the foggy misty tonal atmosphere, lower the overall exposure slightly, reduce the highlights, and deepen the blacks while preserving shadow detail. Desaturate warm colors except for natural skin tones. Add soft matte contrast, a subtle blue-gray haze, rich forest greens, and muted earthy browns, with soft tonal diffusion, gentle vignetting, and a moody premium rainforest ambiance, ${PRESERVE}` },
+                { id: 'forest-river-green', name: 'Forest River Green', isNew: true, prompt: `Apply a deep natural forest green color grade. Enrich the existing greens into deep verdant tones with a soft yellow-green misty tonal glow, gently darken the lower area with a smooth cinematic tonal mask while keeping any existing water or river bright and natural, add soft low contrast, realistic camera colors, and a subtle film-grain finish, avoiding any HDR look or oversaturation, ${PRESERVE}` }
             ]},
             { id: 'golden', fa: 'fa-sun', presets: [
                 { id: 'golden-sunrise', name: 'Golden Sunrise', prompt: `Apply a soft golden sunrise color grade. Wash the existing light in gentle pink-gold dawn tones with a delicate warm tonal haze and a fresh hopeful early-morning glow, ${PRESERVE}` },
@@ -537,7 +548,8 @@
                 { id: 'desert-gold', name: 'Desert Gold', prompt: `Transform this image with a harsh golden desert grade. Apply hot sand-gold tones across the scene, strong dry sunlight with crisp shadows, shimmering heat atmosphere, and mineral warm texture, ${PRESERVE}` },
                 { id: 'beach-evening', name: 'Warm Beach Evening', prompt: `Transform this image with a warm beach evening grade. Blend soft golden sand tones with gentle turquoise water hues, low warm sun glow, salt-air haze, and a relaxed tropical dusk mood, ${PRESERVE}` },
                 { id: 'sunset-dream-haze', name: 'Sunset Dream Haze', prompt: `Apply a dreamy sunset color grade with a soft cinematic dream-haze diffusion. Warm the light with soft yellow, orange, and pink sunset tones, add vibrant pastel color tints, a gentle hopeful dreamlike glow, and a Fujifilm analog film tonal finish, ${PRESERVE}` },
-                { id: 'dreamy-golden', name: 'Dreamy Golden Hour', isNew: true, prompt: `Apply a soft ethereal dreamy cinematic color grade inspired by warm golden-hour sunlight filtering through leaves. Create a strong dreamy glow, creamy highlights, soft bloom around bright areas, gentle atmospheric haze, low contrast with lifted blacks, and a warm ivory, beige and muted olive palette. Use soft pastel shadows, smooth skin tones, Kodak Portra 400 inspired tones, a matte film finish, subtle film grain, a Black Pro Mist softness, and a peaceful nostalgic airy mood. Avoid oversaturation, harsh contrast, sharp clinical edges, and any HDR or artificial look, ${PRESERVE}` }
+                { id: 'dreamy-golden', name: 'Dreamy Golden Hour', isNew: true, prompt: `Apply a soft ethereal dreamy cinematic color grade inspired by warm golden-hour sunlight filtering through leaves. Create a strong dreamy glow, creamy highlights, soft bloom around bright areas, gentle atmospheric haze, low contrast with lifted blacks, and a warm ivory, beige and muted olive palette. Use soft pastel shadows, smooth skin tones, Kodak Portra 400 inspired tones, a matte film finish, subtle film grain, a Black Pro Mist softness, and a peaceful nostalgic airy mood. Avoid oversaturation, harsh contrast, sharp clinical edges, and any HDR or artificial look, ${PRESERVE}` },
+                { id: 'honey-gold-cinematic', name: 'Honey Gold Cinematic', isNew: true, prompt: `Apply a warm honey-gold cinematic color grade. Coat the highlights and midtones in soft amber sunlight and glowing golden tones, keep creamy neutral whites, add gentle orange-gold undertones, a glowing warm edge tone on the subject, a delicate luminous haze, soft diffused shadow transitions, and a slightly faded analog-film finish while preserving realistic textures and natural skin tones, ${PRESERVE}` }
             ]},
             { id: 'moody', fa: 'fa-moon', presets: [
                 { id: 'dark-matte', name: 'Dark Moody Matte', prompt: `Transform this image with a dark moody matte grade. Lift the blacks into soft matte charcoal, mute the colors toward deep muted earth tones, lower the highlights, and create a quiet brooding editorial atmosphere, ${PRESERVE}` },
@@ -643,6 +655,9 @@
                 { id: 'iphone-flash', name: 'iPhone Flash', isNew: true, prompt: `Apply a realistic smartphone flash lighting effect to the uploaded photo while strictly preserving the original subject's face, identity, pose, framing, and background exactly as captured. The original image was taken without flash — simulate a phone flash firing from a small LED source near the phone camera, not a large camera strobe. Add a compact, controlled flash light that illuminates the skin evenly with soft but defined highlights on the cheekbones, nose bridge, lips, shoulders, and arms, with a natural falloff into shadow. The flash must NOT obscure, wash out, or block the face. Avoid large white flare circles or exaggerated hotspots crossing the eyes, nose, or mouth. If visible, flash reflections should appear slightly off-axis, subtle and realistic, never centered over facial features. Keep the background lighting unchanged and dark; the flash should primarily affect the subject and nearby reflective areas only. Hard rule: do not change the face, hair, expression, pose, composition, or background.` },
                 { id: 'polaroid-flash', name: 'Polaroid Flash', isNew: true, prompt: `Apply a vintage Polaroid 600 instant camera flash aesthetic to the uploaded photo while preserving the original subject's face, hair, expression, pose, outfit, and background exactly. Simulate the Polaroid built-in flash bar: a slightly warm, diffused frontal pop with soft highlight rolloff on skin, gentle specular highlights, and a creamy shadow falloff behind the subject. Render with authentic Polaroid film color science: slightly faded highlights, rich but muted midtones, creamy warm whites, soft cyan-blue shadows, and a subtle overall warmth. Add gentle film grain, slight softness across the entire image as if shot through a plastic lens, mild vignetting darkening the corners, and a faint dusty texture overlay. Keep the background slightly underexposed with warm ambient tones bleeding through. Render skin with a soft, luminous quality — glowy but not retouched. Upscale while maintaining the dreamy analog softness. Hard rule: do not change the face, hair, expression, pose, composition, or background.` },
                 { id: 'party-2000s', name: '2000s Party Flash', isNew: true, prompt: `Apply an early-2000s house party digital camera flash aesthetic to the uploaded photo while preserving the original subject's face, hair, expression, pose, outfit, and background exactly. Simulate a cheap compact digital camera from 2003-2008 with direct on-camera flash: harsh, overblown frontal light with hot white highlights on the forehead, nose, and cheekbones, deep unflattering shadows under the chin and behind the subject, and complete background darkness beyond the flash range. Add a visible red-eye effect in the pupils, slight motion blur on the edges if the subject was caught mid-movement, oversaturated warm skin tones, and a faint yellowish color cast from mixed tungsten ambient. Include slight lens flare and blown-out reflections on any jewelry, glasses, or glossy surfaces. Render with that unmistakable low-megapixel early digital look — grainy but sharp in the center, soft at the edges. Upscale while preserving the lo-fi digital texture. Hard rule: do not change the face, hair, expression, pose, composition, or background.` }
+            ]},
+            { id: 'senja-dusk', fa: 'fa-cloud-sun', editorNative: true, isNew: true, presets: [
+                { id: 'senja-dusk', name: 'Senja Dusk', isNew: true, prompt: `Use the uploaded photo as the exact base and content reference. Keep every person, face, identity, pose, clothing, object, composition, camera angle, perspective, and framing exactly identical to the source photo — do NOT add, remove, move, replace, or invent any physical object or person. Only transform the sky, atmosphere, and lighting. Turn the sky into ultra-realistic clouds at dusk with no visible sun, just a natural sky gradient from golden yellow and soft orange on the horizon to pink, lavender, and deep blue overhead. Keep the sky about 20% darker while keeping the people and foreground well-lit with natural lighting and realistic detail. Add soft atmospheric haze, cinematic HDR, smooth tonal transitions, rich natural green tones where vegetation exists, subtle light blooms, DSLR quality, premium landscape photography, 8K, fully photorealistic and natural without any AI-generated look.` }
             ]},
             { id: 'custom', fa: 'fa-pen-ruler', presets: [] }
         ];
