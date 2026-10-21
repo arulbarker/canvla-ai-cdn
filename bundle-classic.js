@@ -18,7 +18,7 @@
                 'home.s1': 'Unggah foto',
                 'home.s1d': 'JPG, PNG, WEBP, atau HEIC dari iPhone — semua bisa.',
                 'home.s2': 'Pilih tema color grading',
-                'home.s2d': '105 tema di 19 kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.',
+                'home.s2d': '{themes} tema di {cats} kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.',
                 'home.s3': 'Proses',
                 'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu unduh hasilnya.',
                 'home.note': 'Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.',
@@ -52,6 +52,11 @@
                 'wiz.download': 'Unduh',
                 'wiz.download-all': 'Unduh Semua',
                 'wiz.preview': 'Pratinjau',
+                'wiz.photo-shared': 'Foto ini otomatis dipakai juga di semua kategori lain',
+                'cmp.compare': 'Bandingkan',
+                'cmp.before': 'Sebelum',
+                'cmp.after': 'Sesudah',
+                'cmp.download': 'Unduh Perbandingan',
                 'wiz.empty': 'Hasil akan muncul di sini',
                 'wiz.empty-hint': 'Unggah foto lalu klik Proses Foto',
                 'wiz.err-upload': 'Silakan unggah foto dulu.',
@@ -250,7 +255,7 @@
                 'home.s1': 'Upload a photo',
                 'home.s1d': 'JPG, PNG, WEBP, or iPhone HEIC — all supported.',
                 'home.s2': 'Pick a color grading theme',
-                'home.s2d': '105 themes across 19 categories — from Foggy Forest to Premium Cinematic. Or write your own in Custom Studio.',
+                'home.s2d': '{themes} themes across {cats} categories — from Foggy Forest to Premium Cinematic. Or write your own in Custom Studio.',
                 'home.s3': 'Generate',
                 'home.s3d': 'Set intensity, ratio (10 options), and count (1-10 photos) — then download the results.',
                 'home.note': 'Free via Google AI Studio — no API key needed. Run this app inside AI Studio Canvas.',
@@ -284,6 +289,11 @@
                 'wiz.download': 'Download',
                 'wiz.download-all': 'Download All',
                 'wiz.preview': 'Preview',
+                'wiz.photo-shared': 'This photo is automatically used in every other category too',
+                'cmp.compare': 'Compare',
+                'cmp.before': 'Before',
+                'cmp.after': 'After',
+                'cmp.download': 'Download Before/After',
                 'wiz.empty': 'Results will appear here',
                 'wiz.empty-hint': 'Upload a photo and hit Generate',
                 'wiz.err-upload': 'Please upload a photo first.',
@@ -494,7 +504,7 @@
         function applyI18n() {
             document.documentElement.lang = LANG;
             document.title = t('app.title');
-            document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+            document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n).replace('{themes}', THEME_COUNT).replace('{cats}', CAT_COUNT); });
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
             document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
             document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
@@ -670,6 +680,8 @@
             ]},
             { id: 'custom', fa: 'fa-pen-ruler', presets: [] }
         ];
+        const THEME_COUNT = CATEGORIES.reduce((n, c) => n + c.presets.length, 0);
+        const CAT_COUNT = CATEGORIES.filter(c => c.id !== 'custom').length;
 
         // === HELPERS ===
         const toastEl = document.getElementById('toast');
@@ -753,21 +765,99 @@
         const previewModal = document.getElementById('preview-modal');
         const previewImg = document.getElementById('preview-img');
         const previewDownload = document.getElementById('preview-download');
-        function openPreview(b64, filename) {
+        const previewCompare = document.getElementById('preview-compare');
+        const previewBefore = document.getElementById('preview-before');
+        const compareLine = document.getElementById('compare-line');
+        const compareRange = document.getElementById('compare-range');
+        const compareToggle = document.getElementById('preview-compare-toggle');
+        const baDownload = document.getElementById('preview-ba-download');
+        const RUN_SOURCE = {};
+        let previewSource = null;
+        function setComparePos(v) {
+            const pos = Math.max(0, Math.min(100, Number(v)));
+            previewBefore.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
+            compareLine.style.left = `${pos}%`;
+            compareRange.value = pos;
+        }
+        function setCompare(on) {
+            previewCompare.classList.toggle('compare-off', !on);
+            compareRange.classList.toggle('hidden', !on);
+            compareToggle.classList.toggle('active', on);
+        }
+        function openPreview(b64, filename, catId, compare) {
             previewImg.src = `data:image/png;base64,${b64}`;
             previewDownload.dataset.base64 = b64;
             previewDownload.dataset.filename = filename;
+            previewSource = (catId && RUN_SOURCE[catId]) || null;
+            previewBefore.src = previewSource ? `data:image/jpeg;base64,${previewSource}` : '';
+            compareToggle.classList.toggle('hidden', !previewSource);
+            baDownload.classList.toggle('hidden', !previewSource);
+            setComparePos(50);
+            setCompare(!!(compare && previewSource));
             previewModal.classList.remove('hidden');
         }
         function closePreview() {
             previewModal.classList.add('hidden');
             previewImg.src = '';
+            previewBefore.src = '';
         }
+        async function downloadBeforeAfter() {
+            if (!previewSource) return;
+            const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+            const [before, after] = await Promise.all([load(`data:image/jpeg;base64,${previewSource}`), load(previewImg.src)]);
+            const w = after.naturalWidth, h = after.naturalHeight;
+            const stacked = w > h;
+            const gap = Math.round(Math.max(w, h) * 0.008);
+            const canvas = document.createElement('canvas');
+            canvas.width = stacked ? w : w * 2 + gap;
+            canvas.height = stacked ? h * 2 + gap : h;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const s = Math.max(w / before.naturalWidth, h / before.naturalHeight);
+            const sw = w / s, sh = h / s;
+            ctx.drawImage(before, (before.naturalWidth - sw) / 2, (before.naturalHeight - sh) / 2, sw, sh, 0, 0, w, h);
+            const ax = stacked ? 0 : w + gap, ay = stacked ? h + gap : 0;
+            ctx.drawImage(after, ax, ay, w, h);
+            const fs = Math.round(Math.min(w, h) * 0.04);
+            const label = (text, x, y) => {
+                ctx.font = `700 ${fs}px Inter, sans-serif`;
+                const pad = Math.round(fs * 0.6), bw = ctx.measureText(text).width + pad * 2, bh = Math.round(fs * 1.8);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                ctx.beginPath();
+                if (ctx.roundRect) ctx.roundRect(x, y, bw, bh, bh / 2); else ctx.rect(x, y, bw, bh);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, x + pad, y + bh / 2);
+            };
+            const m = Math.round(fs * 0.8);
+            label(t('cmp.before').toUpperCase(), m, m);
+            label(t('cmp.after').toUpperCase(), ax + m, ay + m);
+            const name = (previewDownload.dataset.filename || 'canvla.png').replace(/\.png$/, '-before-after.jpg');
+            await window.downloadDataURI(canvas.toDataURL('image/jpeg', 0.92), name);
+        }
+        compareRange.addEventListener('input', () => setComparePos(compareRange.value));
+        compareToggle.addEventListener('click', () => setCompare(previewCompare.classList.contains('compare-off')));
+        baDownload.addEventListener('click', () => downloadBeforeAfter().catch(() => showToast(t('wiz.err-file'))));
+        const dragCompare = (e) => {
+            const r = previewCompare.getBoundingClientRect();
+            setComparePos(((e.clientX - r.left) / r.width) * 100);
+        };
+        previewCompare.addEventListener('pointerdown', (e) => {
+            if (previewCompare.classList.contains('compare-off')) return;
+            previewCompare.setPointerCapture(e.pointerId);
+            dragCompare(e);
+        });
+        previewCompare.addEventListener('pointermove', (e) => {
+            if (previewCompare.hasPointerCapture(e.pointerId)) dragCompare(e);
+        });
         document.addEventListener('click', (e) => {
-            const btn = e.target.closest('[data-action="preview"]');
+            const btn = e.target.closest('[data-action="preview"], [data-action="compare"]');
             if (!btn) return;
             e.preventDefault();
-            openPreview(btn.dataset.base64, btn.dataset.filename);
+            const src = btn.dataset.base64 ? btn : btn.parentElement.querySelector('[data-base64]');
+            openPreview(src.dataset.base64, src.dataset.filename, btn.dataset.cat, btn.dataset.action === 'compare');
         }, true);
         document.getElementById('preview-close').addEventListener('click', closePreview);
         previewModal.addEventListener('click', (e) => { if (e.target === previewModal) closePreview(); });
@@ -854,6 +944,7 @@
                                 <div id="${cat.id}-upload-preview" class="hidden">
                                     <img id="${cat.id}-preview-img" class="rounded-lg max-h-48 mx-auto" alt="">
                                     <p class="text-xs mt-2 accent-text font-semibold" data-i18n="wiz.change-photo"></p>
+                                    <p class="text-xs mt-1" style="color:var(--muted)" data-i18n="wiz.photo-shared"></p>
                                 </div>
                             </div>
                             <input type="file" id="${cat.id}-upload-input" accept="image/*,.heic" class="hidden">
@@ -957,9 +1048,10 @@
                 state.results[index - 1] = { base64: b64, filename: `canvla-${cat.id}-${state.presetId || 'custom'}-${index}.png` };
                 if (card) {
                     const fname = state.results[index - 1].filename;
-                    card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${state.ratio.replace(':', '/')}" alt="">` +
+                    card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${state.ratio.replace(':', '/')}" alt="">` +
                         `<div class="flex items-center justify-center gap-2 mt-2">` +
-                        `<button data-action="preview" data-base64="${b64}" data-filename="${fname}" class="preview-btn" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
+                        `<button data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="preview-btn" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
+                        `<button data-action="compare" data-cat="${cat.id}" class="preview-btn" title="${t('cmp.compare')}"><i class="fas fa-table-columns"></i></button>` +
                         `<button data-action="download" data-base64="${b64}" data-filename="${fname}" class="download-btn"><i class="fas fa-download"></i></button>` +
                         `</div>`;
                 }
@@ -975,6 +1067,7 @@
             if (!prompt) { showToast(t('wiz.err-custom')); return; }
             state.stopped = false;
             state.results = [];
+            RUN_SOURCE[cat.id] = state.base64;
             const genBtn = $('generate-btn'), stopBtn = $('stop-btn'), grid = $('results-grid');
             genBtn.classList.add('hidden');
             stopBtn.classList.remove('hidden');
@@ -1005,6 +1098,7 @@
             }
         }
 
+        const PHOTO_SETTERS = [];
         function initCategory(cat) {
             const $ = (suffix) => document.getElementById(`${cat.id}-${suffix}`);
             const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, removePeople: false, results: [], stopped: false };
@@ -1019,13 +1113,17 @@
                 if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
             });
             input.addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+            PHOTO_SETTERS.push((b64) => {
+                state.base64 = b64;
+                $('preview-img').src = `data:image/jpeg;base64,${b64}`;
+                $('upload-empty').classList.add('hidden');
+                $('upload-preview').classList.remove('hidden');
+                $('generate-btn').disabled = false;
+            });
             async function handleFile(file) {
                 try {
-                    state.base64 = await fileToBase64Compressed(file);
-                    $('preview-img').src = `data:image/jpeg;base64,${state.base64}`;
-                    $('upload-empty').classList.add('hidden');
-                    $('upload-preview').classList.remove('hidden');
-                    $('generate-btn').disabled = false;
+                    const b64 = await fileToBase64Compressed(file);
+                    PHOTO_SETTERS.forEach(fn => fn(b64));
                 } catch {
                     showToast(t('wiz.err-file'));
                 }

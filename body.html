@@ -42,7 +42,7 @@
                             <div class="step-num">2</div>
                             <div>
                                 <p class="font-semibold" data-i18n="home.s2">Pilih tema color grading</p>
-                                <p class="text-sm" style="color:var(--muted)" data-i18n="home.s2d">105 tema di 19 kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.</p>
+                                <p class="text-sm" style="color:var(--muted)" data-i18n="home.s2d">111 tema di 19 kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
@@ -84,8 +84,19 @@
     </div>
     <div id="preview-modal" class="hidden">
         <button id="preview-close" aria-label="Tutup pratinjau" data-i18n-aria="a11y.close-preview"><i class="fas fa-xmark"></i></button>
-        <img id="preview-img" src="" alt="">
-        <button id="preview-download" data-action="download" data-base64="" data-filename="" class="download-btn"><i class="fas fa-download"></i><span data-i18n="wiz.download">Unduh</span></button>
+        <div id="preview-compare" class="compare-off">
+            <img id="preview-img" src="" alt="">
+            <img id="preview-before" src="" alt="">
+            <div class="cmp-line" id="compare-line"></div>
+            <span class="cmp-label" style="left:0.6rem" data-i18n="cmp.before">Sebelum</span>
+            <span class="cmp-label" style="right:0.6rem" data-i18n="cmp.after">Sesudah</span>
+        </div>
+        <input type="range" id="compare-range" class="hidden" min="0" max="100" value="50" data-i18n-aria="cmp.compare" aria-label="Bandingkan">
+        <div class="flex flex-wrap items-center justify-center gap-2">
+            <button type="button" id="preview-compare-toggle" class="preview-btn hidden"><i class="fas fa-table-columns"></i><span data-i18n="cmp.compare">Bandingkan</span></button>
+            <button id="preview-download" data-action="download" data-base64="" data-filename="" class="download-btn"><i class="fas fa-download"></i><span data-i18n="wiz.download">Unduh</span></button>
+            <button type="button" id="preview-ba-download" class="download-btn hidden"><i class="fas fa-images"></i><span data-i18n="cmp.download">Unduh Perbandingan</span></button>
+        </div>
     </div>
     <div id="toast"></div>
 
