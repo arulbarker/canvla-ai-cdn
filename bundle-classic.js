@@ -64,6 +64,8 @@
                 'wiz.err-custom': 'Tulis prompt dulu di Studio Kustom.',
                 'wiz.err-quota': 'Gagal memproses. Akun Google ini kemungkinan mencapai batas — coba ganti akun Google lalu ulangi.',
                 'wiz.stopped-msg': 'Proses dihentikan. Klik Proses Foto untuk mencoba lagi.',
+                'wiz.partial': '{ok} dari {total} foto berhasil. Sisanya gagal diproses — klik Proses Foto lagi kalau mau tambah.',
+                'wiz.err-blocked': 'Foto ini ditolak filter keamanan Google (bukan karena batas akun). Coba foto lain lalu ulangi.',
                 'int.subtle': 'Halus',
                 'int.medium': 'Sedang',
                 'int.strong': 'Kuat',
@@ -302,6 +304,8 @@
                 'wiz.err-custom': 'Write a prompt first in Custom Studio.',
                 'wiz.err-quota': 'Generation failed. This Google account may have hit its limit — switch Google accounts and try again.',
                 'wiz.stopped-msg': 'Processing stopped. Click Generate to try again.',
+                'wiz.partial': '{ok} of {total} photos succeeded. The rest failed — click Generate again if you want more.',
+                'wiz.err-blocked': 'This photo was blocked by the Google safety filter (not an account limit). Try another photo and generate again.',
                 'int.subtle': 'Subtle',
                 'int.medium': 'Medium',
                 'int.strong': 'Strong',
@@ -1035,6 +1039,8 @@
             return p + rp;
         }
 
+        const BLOCKED_REASON = /SAFETY|PROHIBITED|BLOCKLIST|SPII/;
+
         async function generateSingle(cat, state, index, prompt) {
             const card = document.getElementById(`${cat.id}-card-${index}`);
             try {
@@ -1046,7 +1052,11 @@
                 const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: state.controller.signal });
                 const result = await response.json();
                 const b64 = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
-                if (!b64) throw new Error('No image data');
+                if (!b64) {
+                    const reason = result?.promptFeedback?.blockReason || result?.candidates?.[0]?.finishReason;
+                    if (reason && BLOCKED_REASON.test(reason)) state.blocked++;
+                    throw new Error(`No image data${reason ? ` (${reason})` : ''}`);
+                }
                 state.results[index - 1] = { base64: b64, filename: `canvla-${cat.id}-${state.presetId || 'custom'}-${index}.png` };
                 if (card) {
                     const fname = state.results[index - 1].filename;
@@ -1078,6 +1088,7 @@
             let attempts = 0, success = 0;
             while (attempts < 3 && success === 0 && !state.stopped) {
                 attempts++;
+                state.blocked = 0;
                 grid.innerHTML = '';
                 for (let i = 1; i <= state.count; i++) {
                     const card = document.createElement('div');
@@ -1095,11 +1106,17 @@
             stopBtn.classList.add('hidden');
             if (success === 0 && state.stopped) {
                 grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-circle-stop text-4xl mb-3 opacity-40"></i><p>${t('wiz.stopped-msg')}</p></div>`;
+            } else if (success === 0 && state.blocked === state.count) {
+                showToast(t('wiz.err-blocked'));
+                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-shield-halved text-4xl mb-3 opacity-40"></i><p>${t('wiz.err-blocked')}</p></div>`;
             } else if (success === 0) {
                 showToast(t('wiz.err-quota'));
                 grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-triangle-exclamation text-4xl mb-3 opacity-40"></i><p>${t('wiz.err-quota')}</p></div>`;
             } else {
                 $('download-all-btn').classList.remove('hidden');
+                if (success < state.count && !state.stopped) {
+                    showToast(t('wiz.partial').replace('{ok}', success).replace('{total}', state.count));
+                }
             }
         }
 
