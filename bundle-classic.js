@@ -63,6 +63,7 @@
                 'wiz.err-file': 'File tidak didukung. Gunakan JPG, PNG, WEBP, atau HEIC.',
                 'wiz.err-custom': 'Tulis prompt dulu di Studio Kustom.',
                 'wiz.err-quota': 'Gagal memproses. Akun Google ini kemungkinan mencapai batas — coba ganti akun Google lalu ulangi.',
+                'wiz.stopped-msg': 'Proses dihentikan. Klik Proses Foto untuk mencoba lagi.',
                 'int.subtle': 'Halus',
                 'int.medium': 'Sedang',
                 'int.strong': 'Kuat',
@@ -300,6 +301,7 @@
                 'wiz.err-file': 'Unsupported file. Use JPG, PNG, WEBP, or HEIC.',
                 'wiz.err-custom': 'Write a prompt first in Custom Studio.',
                 'wiz.err-quota': 'Generation failed. This Google account may have hit its limit — switch Google accounts and try again.',
+                'wiz.stopped-msg': 'Processing stopped. Click Generate to try again.',
                 'int.subtle': 'Subtle',
                 'int.medium': 'Medium',
                 'int.strong': 'Strong',
@@ -1041,7 +1043,7 @@
                     safetySettings: SAFETY,
                     generationConfig: { responseModalities: ['TEXT', 'IMAGE'], imageConfig: { aspectRatio: state.ratio } }
                 };
-                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: state.controller.signal });
                 const result = await response.json();
                 const b64 = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
                 if (!b64) throw new Error('No image data');
@@ -1056,7 +1058,7 @@
                         `</div>`;
                 }
             } catch (err) {
-                console.error(`${cat.id} #${index}:`, err);
+                if (!err || err.name !== 'AbortError') console.error(`${cat.id} #${index}:`, err);
                 if (card) card.innerHTML = '';
             }
         }
@@ -1066,6 +1068,7 @@
             const prompt = buildPrompt(cat, state);
             if (!prompt) { showToast(t('wiz.err-custom')); return; }
             state.stopped = false;
+            state.controller = new AbortController();
             state.results = [];
             RUN_SOURCE[cat.id] = state.base64;
             const genBtn = $('generate-btn'), stopBtn = $('stop-btn'), grid = $('results-grid');
@@ -1090,7 +1093,9 @@
             }
             genBtn.classList.remove('hidden');
             stopBtn.classList.add('hidden');
-            if (success === 0) {
+            if (success === 0 && state.stopped) {
+                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-circle-stop text-4xl mb-3 opacity-40"></i><p>${t('wiz.stopped-msg')}</p></div>`;
+            } else if (success === 0) {
                 showToast(t('wiz.err-quota'));
                 grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-triangle-exclamation text-4xl mb-3 opacity-40"></i><p>${t('wiz.err-quota')}</p></div>`;
             } else {
@@ -1147,7 +1152,7 @@
             bindGroup('removepeople-grid', 'removepeople', v => { state.removePeople = v === 'on'; });
 
             $('generate-btn').addEventListener('click', () => runGeneration(cat, state, $));
-            $('stop-btn').addEventListener('click', () => { state.stopped = true; });
+            $('stop-btn').addEventListener('click', () => { state.stopped = true; if (state.controller) state.controller.abort(); });
             $('download-all-btn').addEventListener('click', async () => {
                 const items = state.results.filter(Boolean);
                 if (window.__isIOS && window.__isIOS()) {
