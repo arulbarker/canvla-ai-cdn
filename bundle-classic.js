@@ -1062,8 +1062,8 @@
                     const fname = state.results[index - 1].filename;
                     card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${state.ratio.replace(':', '/')}" alt="">` +
                         `<div class="flex items-center justify-center gap-2 mt-2">` +
-                        `<button data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="preview-btn" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
-                        `<button data-action="compare" data-cat="${cat.id}" class="preview-btn" title="${t('cmp.compare')}"><i class="fas fa-table-columns"></i></button>` +
+                        `<button data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="preview-btn" data-i18n-title="wiz.preview" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
+                        `<button data-action="compare" data-cat="${cat.id}" class="preview-btn" data-i18n-title="cmp.compare" title="${t('cmp.compare')}"><i class="fas fa-table-columns"></i></button>` +
                         `<button data-action="download" data-base64="${b64}" data-filename="${fname}" class="download-btn"><i class="fas fa-download"></i></button>` +
                         `</div>`;
                 }
@@ -1105,13 +1105,13 @@
             genBtn.classList.remove('hidden');
             stopBtn.classList.add('hidden');
             if (success === 0 && state.stopped) {
-                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-circle-stop text-4xl mb-3 opacity-40"></i><p>${t('wiz.stopped-msg')}</p></div>`;
+                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-circle-stop text-4xl mb-3 opacity-40"></i><p data-i18n="wiz.stopped-msg">${t('wiz.stopped-msg')}</p></div>`;
             } else if (success === 0 && state.blocked === state.count) {
                 showToast(t('wiz.err-blocked'));
-                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-shield-halved text-4xl mb-3 opacity-40"></i><p>${t('wiz.err-blocked')}</p></div>`;
+                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-shield-halved text-4xl mb-3 opacity-40"></i><p data-i18n="wiz.err-blocked">${t('wiz.err-blocked')}</p></div>`;
             } else if (success === 0) {
                 showToast(t('wiz.err-quota'));
-                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-triangle-exclamation text-4xl mb-3 opacity-40"></i><p>${t('wiz.err-quota')}</p></div>`;
+                grid.innerHTML = `<div class="col-span-2 sm:col-span-3 text-center py-14" style="color:var(--muted)"><i class="fas fa-triangle-exclamation text-4xl mb-3 opacity-40"></i><p data-i18n="wiz.err-quota">${t('wiz.err-quota')}</p></div>`;
             } else {
                 $('download-all-btn').classList.remove('hidden');
                 if (success < state.count && !state.stopped) {
