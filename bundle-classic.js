@@ -51,6 +51,7 @@
                 'wiz.results': 'Hasil',
                 'wiz.download': 'Unduh',
                 'wiz.download-all': 'Unduh Semua',
+                'wiz.count-locked': 'Jumlah foto bisa diganti setelah proses selesai (atau tekan Hentikan Proses dulu).',
                 'wiz.preview': 'Pratinjau',
                 'wiz.photo-shared': 'Foto ini otomatis dipakai juga di semua kategori lain',
                 'cmp.compare': 'Bandingkan',
@@ -291,6 +292,7 @@
                 'wiz.results': 'Results',
                 'wiz.download': 'Download',
                 'wiz.download-all': 'Download All',
+                'wiz.count-locked': 'You can change the number of photos once the current run finishes (or press Stop Generating first).',
                 'wiz.preview': 'Preview',
                 'wiz.photo-shared': 'This photo is automatically used in every other category too',
                 'cmp.compare': 'Compare',
@@ -1041,13 +1043,13 @@
 
         const BLOCKED_REASON = /SAFETY|PROHIBITED|BLOCKLIST|SPII/;
 
-        async function generateSingle(cat, state, index, prompt) {
+        async function generateSingle(cat, state, run, index, prompt) {
             const card = document.getElementById(`${cat.id}-card-${index}`);
             try {
                 const payload = {
-                    contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: "image/jpeg", data: state.base64 } }] }],
+                    contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: "image/jpeg", data: run.base64 } }] }],
                     safetySettings: SAFETY,
-                    generationConfig: { responseModalities: ['TEXT', 'IMAGE'], imageConfig: { aspectRatio: state.ratio } }
+                    generationConfig: { responseModalities: ['TEXT', 'IMAGE'], imageConfig: { aspectRatio: run.ratio } }
                 };
                 const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: state.controller.signal });
                 const result = await response.json();
@@ -1057,14 +1059,14 @@
                     if (reason && BLOCKED_REASON.test(reason)) state.blocked++;
                     throw new Error(`No image data${reason ? ` (${reason})` : ''}`);
                 }
-                state.results[index - 1] = { base64: b64, filename: `canvla-${cat.id}-${state.presetId || 'custom'}-${index}.png` };
+                state.results[index - 1] = { base64: b64, filename: `canvla-${cat.id}-${run.presetId || 'custom'}-${index}.png` };
                 if (card) {
                     const fname = state.results[index - 1].filename;
-                    card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${state.ratio.replace(':', '/')}" alt="">` +
+                    card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${run.ratio.replace(':', '/')}" alt="">` +
                         `<div class="flex items-center justify-center gap-2 mt-2">` +
                         `<button data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="preview-btn" data-i18n-title="wiz.preview" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
                         `<button data-action="compare" data-cat="${cat.id}" class="preview-btn" data-i18n-title="cmp.compare" title="${t('cmp.compare')}"><i class="fas fa-table-columns"></i></button>` +
-                        `<button data-action="download" data-base64="${b64}" data-filename="${fname}" class="download-btn"><i class="fas fa-download"></i></button>` +
+                        `<button data-action="download" data-base64="${b64}" data-filename="${fname}" class="download-btn" data-i18n-title="wiz.download" data-i18n-aria="wiz.download" title="${t('wiz.download')}" aria-label="${t('wiz.download')}"><i class="fas fa-download"></i></button>` +
                         `</div>`;
                 }
             } catch (err) {
@@ -1080,7 +1082,9 @@
             state.stopped = false;
             state.controller = new AbortController();
             state.results = [];
+            const run = { base64: state.base64, ratio: state.ratio, presetId: state.presetId };
             RUN_SOURCE[cat.id] = state.base64;
+            state.running = true;
             const genBtn = $('generate-btn'), stopBtn = $('stop-btn'), grid = $('results-grid');
             genBtn.classList.add('hidden');
             stopBtn.classList.remove('hidden');
@@ -1093,15 +1097,16 @@
                 for (let i = 1; i <= state.count; i++) {
                     const card = document.createElement('div');
                     card.id = `${cat.id}-card-${i}`;
-                    card.innerHTML = `<div class="w-full rounded-lg flex items-center justify-center" style="aspect-ratio:${state.ratio.replace(':', '/')};background:var(--panel-2)"><i class="fas fa-circle-notch spin text-2xl accent-text"></i></div>`;
+                    card.innerHTML = `<div class="w-full rounded-lg flex items-center justify-center" style="aspect-ratio:${run.ratio.replace(':', '/')};background:var(--panel-2)"><i class="fas fa-circle-notch spin text-2xl accent-text"></i></div>`;
                     grid.appendChild(card);
                 }
                 await Promise.allSettled(
-                    Array.from({ length: state.count }, (_, i) => generateSingle(cat, state, i + 1, prompt))
+                    Array.from({ length: state.count }, (_, i) => generateSingle(cat, state, run, i + 1, prompt))
                 );
                 grid.querySelectorAll(`[id^="${cat.id}-card-"]`).forEach(c => { if (!c.querySelector('img')) c.remove(); });
                 success = state.results.filter(Boolean).length;
             }
+            state.running = false;
             genBtn.classList.remove('hidden');
             stopBtn.classList.add('hidden');
             if (success === 0 && state.stopped) {
@@ -1123,7 +1128,7 @@
         const PHOTO_SETTERS = [];
         function initCategory(cat) {
             const $ = (suffix) => document.getElementById(`${cat.id}-${suffix}`);
-            const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, removePeople: false, results: [], stopped: false };
+            const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, removePeople: false, results: [], stopped: false, running: false };
 
             const dropzone = $('dropzone'), input = $('upload-input');
             dropzone.addEventListener('click', () => input.click());
@@ -1151,12 +1156,13 @@
                 }
             }
 
-            const bindGroup = (gridId, attr, apply) => {
+            const bindGroup = (gridId, attr, apply, lockWhileRunning) => {
                 const el = $(gridId);
                 if (!el) return;
                 el.addEventListener('click', (e) => {
                     const b = e.target.closest(`[data-${attr}]`);
                     if (!b) return;
+                    if (lockWhileRunning && state.running) { showToast(t('wiz.count-locked')); return; }
                     apply(b.dataset[attr]);
                     el.querySelectorAll(`[data-${attr}]`).forEach(x => x.classList.toggle('selected', x === b));
                 });
@@ -1165,7 +1171,7 @@
             bindGroup('preset-grid', 'preset', v => { state.presetId = v; });
             bindGroup('intensity-grid', 'intensity', v => { state.intensity = v; });
             bindGroup('ratio-grid', 'ratio', v => { state.ratio = v; });
-            bindGroup('count-grid', 'count', v => { state.count = Number(v); });
+            bindGroup('count-grid', 'count', v => { state.count = Number(v); }, true);
             bindGroup('removepeople-grid', 'removepeople', v => { state.removePeople = v === 'on'; });
 
             $('generate-btn').addEventListener('click', () => runGeneration(cat, state, $));
