@@ -54,6 +54,7 @@
                 'wiz.count-locked': 'Jumlah foto bisa diganti setelah proses selesai (atau tekan Hentikan Proses dulu).',
                 'wiz.preview': 'Pratinjau',
                 'wiz.photo-shared': 'Foto ini otomatis dipakai juga di semua kategori lain',
+                'wiz.photo-loading': 'Menyiapkan foto...',
                 'cmp.compare': 'Bandingkan',
                 'cmp.before': 'Sebelum',
                 'cmp.after': 'Sesudah',
@@ -295,6 +296,7 @@
                 'wiz.count-locked': 'You can change the number of photos once the current run finishes (or press Stop Generating first).',
                 'wiz.preview': 'Preview',
                 'wiz.photo-shared': 'This photo is automatically used in every other category too',
+                'wiz.photo-loading': 'Preparing photo...',
                 'cmp.compare': 'Compare',
                 'cmp.before': 'Before',
                 'cmp.after': 'After',
@@ -727,7 +729,10 @@
             }
             const canvas = document.createElement('canvas');
             canvas.width = w; canvas.height = h;
-            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
             return canvas.toDataURL('image/jpeg', 0.85).split(',')[1];
         }
 
@@ -898,7 +903,7 @@
             CATEGORIES.forEach(cat => {
                 const isCustom = cat.id === 'custom';
                 const hasMode = !cat.editorNative;
-                const nPreset = hasMode ? 3 : 2, nIntensity = hasMode ? 4 : 3, nRatio = hasMode ? 5 : 4, nCount = hasMode ? 6 : 5;
+                const nPreset = hasMode ? 3 : 2, nIntensity = hasMode ? 4 : 3, nRatio = isCustom ? nIntensity : nIntensity + 1, nCount = nRatio + 1;
                 const stepHead = (num, key) => `<div class="flex items-center gap-2 mb-4"><div class="step-num">${num}</div><h2 class="text-lg font-bold" data-i18n="${key}"></h2></div>`;
                 const modeSection = !hasMode ? '' : `
                     <div class="card p-5">
@@ -931,6 +936,16 @@
                         ${stepHead(3, 'wiz.step2')}
                         <textarea id="${cat.id}-custom-input" rows="5" data-i18n-placeholder="wiz.custom-required"></textarea>
                     </div>`;
+                const intensitySection = isCustom ? '' : `
+                    <div class="card p-5">
+                        ${stepHead(nIntensity, 'wiz.step3')}
+                        <div id="${cat.id}-intensity-grid" class="grid grid-cols-2 gap-2">
+                            <button type="button" class="opt-btn" data-intensity="subtle" data-i18n="int.subtle"></button>
+                            <button type="button" class="opt-btn selected" data-intensity="medium" data-i18n="int.medium"></button>
+                            <button type="button" class="opt-btn" data-intensity="strong" data-i18n="int.strong"></button>
+                            <button type="button" class="opt-btn" data-intensity="max" data-i18n="int.max"></button>
+                        </div>
+                    </div>`;
                 const panel = document.createElement('div');
                 panel.id = `content-${cat.id}`;
                 panel.className = 'main-content-panel hidden';
@@ -949,6 +964,10 @@
                                     <p class="text-sm font-medium" data-i18n="wiz.upload-hint"></p>
                                     <p class="text-xs mt-1" style="color:var(--muted)" data-i18n="wiz.upload-formats"></p>
                                 </div>
+                                <div id="${cat.id}-upload-loading" class="hidden py-3">
+                                    <i class="fas fa-circle-notch spin text-2xl accent-text mb-2"></i>
+                                    <p class="text-sm font-medium" data-i18n="wiz.photo-loading"></p>
+                                </div>
                                 <div id="${cat.id}-upload-preview" class="hidden">
                                     <img id="${cat.id}-preview-img" class="rounded-lg max-h-48 mx-auto" alt="">
                                     <p class="text-xs mt-2 accent-text font-semibold" data-i18n="wiz.change-photo"></p>
@@ -957,16 +976,7 @@
                             </div>
                             <input type="file" id="${cat.id}-upload-input" accept="image/*,.heic" class="hidden">
                         </div>
-                        ${modeSection}${presetSection}${customSection}
-                        <div class="card p-5">
-                            ${stepHead(nIntensity, 'wiz.step3')}
-                            <div id="${cat.id}-intensity-grid" class="grid grid-cols-2 gap-2">
-                                <button type="button" class="opt-btn" data-intensity="subtle" data-i18n="int.subtle"></button>
-                                <button type="button" class="opt-btn selected" data-intensity="medium" data-i18n="int.medium"></button>
-                                <button type="button" class="opt-btn" data-intensity="strong" data-i18n="int.strong"></button>
-                                <button type="button" class="opt-btn" data-intensity="max" data-i18n="int.max"></button>
-                            </div>
-                        </div>
+                        ${modeSection}${presetSection}${customSection}${intensitySection}
                         <div class="card p-5">
                             ${stepHead(nRatio, 'wiz.step4')}
                             <div id="${cat.id}-ratio-grid" class="grid grid-cols-2 gap-2">
@@ -990,7 +1000,7 @@
                         <button type="button" id="${cat.id}-generate-btn" class="btn-generate" disabled><i class="fas fa-bolt"></i><span data-i18n="wiz.generate"></span></button>
                         <button type="button" id="${cat.id}-stop-btn" class="btn-stop hidden"><i class="fas fa-stop-circle"></i><span data-i18n="wiz.stop"></span></button>
                     </div>
-                    <div class="lg:col-span-2">
+                    <div class="lg:col-span-2 results-col">
                         <div class="card p-5">
                             <div class="flex items-center justify-between mb-4 gap-2">
                                 <h3 class="text-lg font-bold"><i class="fas fa-images accent-text mr-2"></i><span data-i18n="wiz.results"></span></h3>
@@ -1088,6 +1098,7 @@
             const genBtn = $('generate-btn'), stopBtn = $('stop-btn'), grid = $('results-grid');
             genBtn.classList.add('hidden');
             stopBtn.classList.remove('hidden');
+            if (isMobile()) stopBtn.scrollIntoView({ behavior: 'smooth', block: 'start' });
             $('download-all-btn').classList.add('hidden');
             let attempts = 0, success = 0;
             while (attempts < 3 && success === 0 && !state.stopped) {
@@ -1139,7 +1150,7 @@
                 dropzone.classList.remove('dragover');
                 if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
             });
-            input.addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+            input.addEventListener('change', (e) => { const file = e.target.files[0]; e.target.value = ''; if (file) handleFile(file); });
             PHOTO_SETTERS.push((b64) => {
                 state.base64 = b64;
                 $('preview-img').src = `data:image/jpeg;base64,${b64}`;
@@ -1148,11 +1159,17 @@
                 $('generate-btn').disabled = false;
             });
             async function handleFile(file) {
+                $('upload-empty').classList.add('hidden');
+                $('upload-preview').classList.add('hidden');
+                $('upload-loading').classList.remove('hidden');
                 try {
                     const b64 = await fileToBase64Compressed(file);
                     PHOTO_SETTERS.forEach(fn => fn(b64));
                 } catch {
                     showToast(t('wiz.err-file'));
+                } finally {
+                    $('upload-loading').classList.add('hidden');
+                    $(state.base64 ? 'upload-preview' : 'upload-empty').classList.remove('hidden');
                 }
             }
 
@@ -1201,23 +1218,31 @@
         // === TABS ===
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('toggle-sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
         const isMobile = () => window.innerWidth < 1024;
+        function closeMobileSidebar() {
+            sidebar.classList.remove('open');
+            toggleBtn.classList.remove('sidebar-open');
+            backdrop.classList.add('hidden');
+        }
         function switchTab(tab) {
             document.querySelectorAll('.main-content-panel').forEach(p => p.classList.add('hidden'));
             const panel = document.getElementById(`content-${tab}`);
             if (panel) panel.classList.remove('hidden');
             document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-            if (isMobile()) { sidebar.classList.remove('open'); toggleBtn.classList.remove('sidebar-open'); }
+            if (isMobile()) closeMobileSidebar();
             window.scrollTo({ top: 0 });
         }
         document.addEventListener('click', (e) => {
             const btn = e.target.closest('[data-tab]');
             if (btn) switchTab(btn.dataset.tab);
         });
+        backdrop.addEventListener('click', closeMobileSidebar);
         toggleBtn.addEventListener('click', () => {
             if (isMobile()) {
                 sidebar.classList.toggle('open');
                 toggleBtn.classList.toggle('sidebar-open', sidebar.classList.contains('open'));
+                backdrop.classList.toggle('hidden', !sidebar.classList.contains('open'));
             } else {
                 sidebar.classList.toggle('collapsed');
                 document.getElementById('main-panels').classList.toggle('expanded', sidebar.classList.contains('collapsed'));
