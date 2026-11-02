@@ -31,7 +31,7 @@
         .sidebar.collapsed { transform: translateX(-280px); }
         .main-content-wrapper.expanded { margin-left: 0; width: 100%; }
         .toggle-sidebar-btn {
-            position: fixed; left: 292px; top: 1rem; z-index: 1001;
+            position: fixed; left: 228px; top: 1rem; z-index: 1001;
             background: var(--panel); border: 1px solid var(--line); border-radius: 0.5rem;
             width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
             cursor: pointer; color: var(--muted); transition: all 0.3s ease;
@@ -114,6 +114,7 @@
             padding: 1.5rem 1rem; text-align: center; cursor: pointer; transition: all 0.2s ease;
         }
         .dropzone:hover, .dropzone.dragover { border-color: var(--accent); }
+        .dropzone:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
         .btn-generate {
             width: 100%; min-height: 52px; border: none; border-radius: 0.8rem;
@@ -159,6 +160,7 @@
         #sidebar-backdrop { position: fixed; inset: 0; z-index: 999; background: rgba(4, 8, 18, 0.55); }
         @media (min-width: 1024px) {
             #sidebar-backdrop { display: none; }
+            .main-content-wrapper.expanded { padding-left: 4.5rem; }
             .results-col { position: sticky; top: 1rem; align-self: start; }
             .results-col .card { max-height: calc(100vh - 2rem); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
         }

@@ -958,7 +958,7 @@
                     <div class="space-y-5">
                         <div class="card p-5">
                             ${stepHead(1, 'wiz.step1')}
-                            <div id="${cat.id}-dropzone" class="dropzone">
+                            <div id="${cat.id}-dropzone" class="dropzone" role="button" tabindex="0" data-i18n-aria="wiz.upload-hint" aria-label="${t('wiz.upload-hint')}">
                                 <div id="${cat.id}-upload-empty">
                                     <i class="fas fa-cloud-arrow-up text-3xl mb-2 accent-text"></i>
                                     <p class="text-sm font-medium" data-i18n="wiz.upload-hint"></p>
@@ -1074,8 +1074,8 @@
                     const fname = state.results[index - 1].filename;
                     card.innerHTML = `<img src="data:image/png;base64,${b64}" data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="result-img rounded-lg w-full h-auto object-cover" style="aspect-ratio:${run.ratio.replace(':', '/')}" alt="">` +
                         `<div class="flex items-center justify-center gap-2 mt-2">` +
-                        `<button data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="preview-btn" data-i18n-title="wiz.preview" title="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
-                        `<button data-action="compare" data-cat="${cat.id}" class="preview-btn" data-i18n-title="cmp.compare" title="${t('cmp.compare')}"><i class="fas fa-table-columns"></i></button>` +
+                        `<button data-action="preview" data-cat="${cat.id}" data-base64="${b64}" data-filename="${fname}" class="preview-btn" data-i18n-title="wiz.preview" data-i18n-aria="wiz.preview" title="${t('wiz.preview')}" aria-label="${t('wiz.preview')}"><i class="fas fa-eye"></i></button>` +
+                        `<button data-action="compare" data-cat="${cat.id}" class="preview-btn" data-i18n-title="cmp.compare" data-i18n-aria="cmp.compare" title="${t('cmp.compare')}" aria-label="${t('cmp.compare')}"><i class="fas fa-table-columns"></i></button>` +
                         `<button data-action="download" data-base64="${b64}" data-filename="${fname}" class="download-btn" data-i18n-title="wiz.download" data-i18n-aria="wiz.download" title="${t('wiz.download')}" aria-label="${t('wiz.download')}"><i class="fas fa-download"></i></button>` +
                         `</div>`;
                 }
@@ -1143,6 +1143,7 @@
 
             const dropzone = $('dropzone'), input = $('upload-input');
             dropzone.addEventListener('click', () => input.click());
+            dropzone.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
             dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
             dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
             dropzone.addEventListener('drop', (e) => {
