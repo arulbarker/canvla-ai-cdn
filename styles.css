@@ -78,6 +78,13 @@
             display: inline-block; height: 15px; border: 1.5px solid currentColor;
             border-radius: 3px; flex: none;
         }
+        .ratio-fit { display: none; }
+        .opt-btn.fit { flex-wrap: wrap; row-gap: 0.15rem; }
+        .opt-btn.fit .ratio-fit {
+            display: block; flex-basis: 100%; font-size: 0.62rem; font-weight: 700; line-height: 1.2;
+            letter-spacing: 0.03em; text-transform: uppercase; color: #10b981;
+        }
+        .opt-btn.selected .ratio-fit { color: #06231a; }
         .preset-btn {
             background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
             border-radius: 0.75rem; min-height: 52px; padding: 0.7rem 0.8rem; text-align: left;

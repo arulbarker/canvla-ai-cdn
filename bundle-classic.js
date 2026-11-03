@@ -54,6 +54,7 @@
                 'wiz.count-locked': 'Jumlah foto bisa diganti setelah proses selesai (atau tekan Hentikan Proses dulu).',
                 'wiz.preview': 'Pratinjau',
                 'wiz.photo-shared': 'Foto ini otomatis dipakai juga di semua kategori lain',
+                'wiz.ratio-fit': 'Sesuai foto',
                 'wiz.photo-loading': 'Menyiapkan foto...',
                 'cmp.compare': 'Bandingkan',
                 'cmp.before': 'Sebelum',
@@ -296,6 +297,7 @@
                 'wiz.count-locked': 'You can change the number of photos once the current run finishes (or press Stop Generating first).',
                 'wiz.preview': 'Preview',
                 'wiz.photo-shared': 'This photo is automatically used in every other category too',
+                'wiz.ratio-fit': 'Matches photo',
                 'wiz.photo-loading': 'Preparing photo...',
                 'cmp.compare': 'Compare',
                 'cmp.before': 'Before',
@@ -703,6 +705,7 @@
             toastTimer = setTimeout(() => toastEl.classList.remove('show'), 4000);
         }
 
+        let photoFitRatio = '3:4';
         async function fileToBase64Compressed(file) {
             if (file.type === 'image/heic' || /\.heic$/i.test(file.name)) {
                 file = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.9 });
@@ -727,6 +730,7 @@
                 if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
                 else { w = Math.round(w * MAX / h); h = MAX; }
             }
+            photoFitRatio = nearestRatio(w, h);
             const canvas = document.createElement('canvas');
             canvas.width = w; canvas.height = h;
             const ctx = canvas.getContext('2d');
@@ -786,6 +790,7 @@
         const baDownload = document.getElementById('preview-ba-download');
         const RUN_SOURCE = {};
         let previewSource = null;
+        let previewReturnFocus = null;
         function setComparePos(v) {
             const pos = Math.max(0, Math.min(100, Number(v)));
             previewBefore.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
@@ -807,12 +812,17 @@
             baDownload.classList.toggle('hidden', !previewSource);
             setComparePos(50);
             setCompare(!!(compare && previewSource));
+            previewReturnFocus = document.activeElement;
             previewModal.classList.remove('hidden');
+            document.getElementById('preview-close').focus();
         }
         function closePreview() {
+            if (previewModal.classList.contains('hidden')) return;
             previewModal.classList.add('hidden');
             previewImg.src = '';
             previewBefore.src = '';
+            if (previewReturnFocus && previewReturnFocus.isConnected) previewReturnFocus.focus();
+            previewReturnFocus = null;
         }
         async function downloadBeforeAfter() {
             if (!previewSource) return;
@@ -878,6 +888,16 @@
 
         // === BUILDERS ===
         const RATIOS = ['1:1', '3:4', '4:3', '4:5', '5:4', '2:3', '3:2', '9:16', '16:9', '21:9'];
+        function nearestRatio(w, h) {
+            const target = Math.log(w / h);
+            let best = '3:4', bestDiff = Infinity;
+            RATIOS.forEach(r => {
+                const [a, b] = r.split(':').map(Number);
+                const diff = Math.abs(Math.log(a / b) - target);
+                if (diff < bestDiff) { best = r; bestDiff = diff; }
+            });
+            return best;
+        }
 
         function buildSidebar() {
             const nav = document.getElementById('sidebar-nav');
@@ -980,7 +1000,7 @@
                         <div class="card p-5">
                             ${stepHead(nRatio, 'wiz.step4')}
                             <div id="${cat.id}-ratio-grid" class="grid grid-cols-2 gap-2">
-                                ${RATIOS.map(r => `<button type="button" class="opt-btn${r === '3:4' ? ' selected' : ''}" data-ratio="${r}"><span class="ratio-icon" style="aspect-ratio:${r.replace(':', '/')}"></span>${r} <span data-i18n="ratio.${r}"></span></button>`).join('')}
+                                ${RATIOS.map(r => `<button type="button" class="opt-btn${r === '3:4' ? ' selected' : ''}" data-ratio="${r}"><span class="ratio-icon" style="aspect-ratio:${r.replace(':', '/')}"></span>${r} <span data-i18n="ratio.${r}"></span><span class="ratio-fit" data-i18n="wiz.ratio-fit"></span></button>`).join('')}
                             </div>
                         </div>
                         <div class="card p-5">
@@ -1139,7 +1159,11 @@
         const PHOTO_SETTERS = [];
         function initCategory(cat) {
             const $ = (suffix) => document.getElementById(`${cat.id}-${suffix}`);
-            const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, removePeople: false, results: [], stopped: false, running: false };
+            const state = { base64: null, presetId: cat.presets[0] ? cat.presets[0].id : null, mode: 'grading', intensity: 'medium', ratio: '3:4', count: 4, removePeople: false, results: [], stopped: false, running: false, ratioPicked: false };
+            const selectRatio = (r) => {
+                state.ratio = r;
+                $('ratio-grid').querySelectorAll('[data-ratio]').forEach(x => x.classList.toggle('selected', x.dataset.ratio === r));
+            };
 
             const dropzone = $('dropzone'), input = $('upload-input');
             dropzone.addEventListener('click', () => input.click());
@@ -1158,6 +1182,8 @@
                 $('upload-empty').classList.add('hidden');
                 $('upload-preview').classList.remove('hidden');
                 $('generate-btn').disabled = false;
+                $('ratio-grid').querySelectorAll('[data-ratio]').forEach(x => x.classList.toggle('fit', x.dataset.ratio === photoFitRatio));
+                if (!state.ratioPicked) selectRatio(photoFitRatio);
             });
             async function handleFile(file) {
                 $('upload-empty').classList.add('hidden');
@@ -1188,7 +1214,7 @@
             bindGroup('mode-grid', 'mode', v => { state.mode = v; });
             bindGroup('preset-grid', 'preset', v => { state.presetId = v; });
             bindGroup('intensity-grid', 'intensity', v => { state.intensity = v; });
-            bindGroup('ratio-grid', 'ratio', v => { state.ratio = v; });
+            bindGroup('ratio-grid', 'ratio', v => { state.ratio = v; state.ratioPicked = true; });
             bindGroup('count-grid', 'count', v => { state.count = Number(v); }, true);
             bindGroup('removepeople-grid', 'removepeople', v => { state.removePeople = v === 'on'; });
 
