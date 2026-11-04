@@ -1245,6 +1245,7 @@
         // === TABS ===
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('toggle-sidebar');
+        const topbarTitle = document.getElementById('topbar-title');
         const backdrop = document.getElementById('sidebar-backdrop');
         const isMobile = () => window.innerWidth < 1024;
         function closeMobileSidebar() {
@@ -1257,6 +1258,8 @@
             const panel = document.getElementById(`content-${tab}`);
             if (panel) panel.classList.remove('hidden');
             document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            topbarTitle.dataset.i18n = tab === 'beranda' ? 'nav.home' : `cat.${tab}.name`;
+            applyI18n();
             if (isMobile()) closeMobileSidebar();
             window.scrollTo({ top: 0 });
         }

@@ -40,6 +40,12 @@
         .toggle-sidebar-btn.collapsed { left: 12px; }
         .toggle-sidebar-btn.collapsed i { transform: rotate(180deg); }
         .toggle-sidebar-btn i { transition: transform 0.3s ease; }
+        #mobile-topbar {
+            display: none; position: fixed; top: 0; left: 0; right: 0; height: 4.5rem; z-index: 998;
+            background: var(--bg); border-bottom: 1px solid var(--line);
+            align-items: center; padding: 0 1rem 0 4.5rem;
+        }
+        #topbar-title { font-weight: 700; font-size: 1rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .main-tab-btn {
             background: transparent; color: var(--muted); border-left: 3px solid transparent;
@@ -161,6 +167,7 @@
             .sidebar { transform: translateX(-280px); }
             .sidebar.open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.6); }
             .main-content-wrapper { margin-left: 0; width: 100%; padding: 4.5rem 1rem 1rem; }
+            #mobile-topbar { display: flex; }
             .toggle-sidebar-btn { left: 12px; }
             .toggle-sidebar-btn.sidebar-open { left: 292px; }
         }
