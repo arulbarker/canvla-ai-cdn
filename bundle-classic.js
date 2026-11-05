@@ -21,7 +21,6 @@
                 'home.s2d': '{themes} tema di {cats} kategori — dari Hutan Berkabut sampai Sinematik Premium. Atau tulis prompt sendiri di Studio Kustom.',
                 'home.s3': 'Proses',
                 'home.s3d': 'Atur intensitas, rasio (10 pilihan), dan jumlah (1-10 foto) — lalu unduh hasilnya.',
-                'home.note': 'Gratis via Google AI Studio — tidak perlu API key. Jalankan app ini di dalam Canvas AI Studio.',
                 'badge.new': 'Baru',
                 'wiz.step1': 'Unggah Foto',
                 'wiz.step-mode': 'Mode Edit',
@@ -52,6 +51,7 @@
                 'wiz.download': 'Unduh',
                 'wiz.download-all': 'Unduh Semua',
                 'wiz.count-locked': 'Jumlah foto bisa diganti setelah proses selesai (atau tekan Hentikan Proses dulu).',
+                'wiz.settings-locked': 'Pengaturan terkunci selama proses berjalan supaya hasilnya cocok dengan pilihanmu. Tekan Hentikan Proses dulu kalau mau mengubah.',
                 'wiz.preview': 'Pratinjau',
                 'wiz.photo-shared': 'Foto ini otomatis dipakai juga di semua kategori lain',
                 'wiz.ratio-fit': 'Sesuai foto',
@@ -264,7 +264,6 @@
                 'home.s2d': '{themes} themes across {cats} categories — from Foggy Forest to Premium Cinematic. Or write your own in Custom Studio.',
                 'home.s3': 'Generate',
                 'home.s3d': 'Set intensity, ratio (10 options), and count (1-10 photos) — then download the results.',
-                'home.note': 'Free via Google AI Studio — no API key needed. Run this app inside AI Studio Canvas.',
                 'badge.new': 'New',
                 'wiz.step1': 'Upload Photo',
                 'wiz.step-mode': 'Edit Mode',
@@ -295,6 +294,7 @@
                 'wiz.download': 'Download',
                 'wiz.download-all': 'Download All',
                 'wiz.count-locked': 'You can change the number of photos once the current run finishes (or press Stop Generating first).',
+                'wiz.settings-locked': 'Settings are locked while a run is in progress so the results match what you picked. Press Stop Generating first if you want to change them.',
                 'wiz.preview': 'Preview',
                 'wiz.photo-shared': 'This photo is automatically used in every other category too',
                 'wiz.ratio-fit': 'Matches photo',
@@ -1177,6 +1177,7 @@
             });
             input.addEventListener('change', (e) => { const file = e.target.files[0]; e.target.value = ''; if (file) handleFile(file); });
             PHOTO_SETTERS.push((b64) => {
+                if (state.running) return;
                 state.base64 = b64;
                 $('preview-img').src = `data:image/jpeg;base64,${b64}`;
                 $('upload-empty').classList.add('hidden');
@@ -1186,6 +1187,7 @@
                 if (!state.ratioPicked) selectRatio(photoFitRatio);
             });
             async function handleFile(file) {
+                if (state.running) { showToast(t('wiz.settings-locked')); return; }
                 $('upload-empty').classList.add('hidden');
                 $('upload-preview').classList.add('hidden');
                 $('upload-loading').classList.remove('hidden');
@@ -1207,6 +1209,7 @@
                     const b = e.target.closest(`[data-${attr}]`);
                     if (!b) return;
                     if (lockWhileRunning && state.running) { showToast(t('wiz.count-locked')); return; }
+                    if (state.running) { showToast(t('wiz.settings-locked')); return; }
                     apply(b.dataset[attr]);
                     el.querySelectorAll(`[data-${attr}]`).forEach(x => x.classList.toggle('selected', x === b));
                 });
