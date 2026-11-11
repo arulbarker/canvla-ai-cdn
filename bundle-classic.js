@@ -1175,6 +1175,7 @@
                 dropzone.classList.remove('dragover');
                 if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
             });
+            input.addEventListener('click', (e) => { if (state.running) { e.preventDefault(); showToast(t('wiz.settings-locked')); } });
             input.addEventListener('change', (e) => { const file = e.target.files[0]; e.target.value = ''; if (file) handleFile(file); });
             PHOTO_SETTERS.push((b64) => {
                 if (state.running) return;
